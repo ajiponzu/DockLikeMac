@@ -12,9 +12,12 @@ namespace DoclikeMac
     {
         //画面解像度(横)
         private double screenWidth;
-
         //画面解像度(縦)
         private double screenHeight;
+        //調整高さ幅
+        private const int pad = 1;
+        //ウィンドウy座標最小値
+        private double minY;
 
         //ウィンドウの表示・非表示アニメーションのためのメンバ
         private DispatcherTimer timer = null;
@@ -31,9 +34,10 @@ namespace DoclikeMac
             InitializeComponent();
             /* 画面中央下に配置 */
             screenWidth = SystemParameters.PrimaryScreenWidth;
-            screenHeight = SystemParameters.PrimaryScreenHeight;
+            screenHeight = SystemParameters.PrimaryScreenHeight - pad;
             Left = (screenWidth - Width) / 2;
-            Top = screenHeight - 1;
+            Top = screenHeight;
+            minY = screenHeight - Height + pad;
             Opacity = 0;
         }
 
@@ -52,14 +56,14 @@ namespace DoclikeMac
             {
                 Top -= delta;
                 //所定の位置まで動かして止める
-                if (Top <= screenHeight - Height && delta > 0)
+                if (Top < minY && delta > 0)
                 {
-                    Top = screenHeight - Height - 1;
+                    Top = minY;
                     t.Stop();
                 }
-                else if (Top >= screenHeight && delta < 0)
+                else if (Top > screenHeight && delta < 0)
                 {
-                    Top = screenHeight - 1;
+                    Top = screenHeight;
                     Opacity = 0;
                     t.Stop();
                 }
@@ -76,9 +80,10 @@ namespace DoclikeMac
         private void Window_DpiChanged(object sender, DpiChangedEventArgs e)
         {
             screenWidth = SystemParameters.PrimaryScreenWidth;
-            screenHeight = SystemParameters.PrimaryScreenHeight;
+            screenHeight = SystemParameters.PrimaryScreenHeight - pad;
             Left = (screenWidth - Width) / 2;
-            Top = screenHeight - 1;
+            Top = screenHeight;
+            minY = screenHeight - Height + pad;
         }
 
         /// <summary>
