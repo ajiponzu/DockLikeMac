@@ -6,4 +6,16 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="noise.png" />
+    <None Remove="ocean_girl.jpg" />
+    <None Remove="ryza1.PNG" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="noise.png" />
+    <Resource Include="ocean_girl.jpg" />
+    <Resource Include="ryza1.PNG" />
+  </ItemGroup>
+
 </Project>

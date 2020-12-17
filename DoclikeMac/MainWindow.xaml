@@ -7,7 +7,13 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="55" Width="800" ResizeMode="NoResize" Visibility="Visible" Topmost="True" 
         DpiChanged="Window_DpiChanged" MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" WindowStyle="None" >
-    <StackPanel>
-        <Image Visibility="Visible" Opacity="0.015"></Image>
-    </StackPanel>
+
+    <Window.Background>
+        <ImageBrush ImageSource="/noise.png"
+                    Opacity="0.04"
+                    Stretch="None"
+                    TileMode="Tile"
+                    Viewport="0,0,128,128"
+                    ViewportUnits="Absolute" />
+    </Window.Background>
 </Window>
