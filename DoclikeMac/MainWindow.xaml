@@ -16,7 +16,7 @@
         Topmost="True" 
         DpiChanged="Window_DpiChanged" 
         MouseEnter="Window_MouseEnter" 
-        MouseLeave="Window_MouseLeave"
+        MouseLeave="Window_MouseLeave" ShowInTaskbar="False"
         >
 
     <f:AcrylicChrome.AcrylicChrome>
