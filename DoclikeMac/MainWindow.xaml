@@ -3,14 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:f="clr-namespace:FluentWpfChromes;assembly=FluentWpfChromes"
         xmlns:local="clr-namespace:DoclikeMac"
         mc:Ignorable="d"
         Title="MainWindow"
-        Height="70"
-        Width="800" 
+        Height="80"
+        Width="800"
         WindowStyle="None"
-        Background="#1946455F"
+        Background="#CFEFF6FF"
+        AllowsTransparency="True"
         ResizeMode="NoResize"
         Visibility="Visible"
         Topmost="True" 
@@ -19,10 +19,7 @@
         MouseLeave="Window_MouseLeave" ShowInTaskbar="False"
         >
 
-    <f:AcrylicChrome.AcrylicChrome>
-        <f:AcrylicChrome/>
-    </f:AcrylicChrome.AcrylicChrome>
     <Grid>
-        <TextBlock Text="activate maclikedoc" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF16E9CC"></TextBlock>
+        <TextBlock Text="activate maclikedoc" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF16E9CC" ></TextBlock>
     </Grid>
 </Window>

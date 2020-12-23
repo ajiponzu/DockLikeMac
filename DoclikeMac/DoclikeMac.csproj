@@ -6,19 +6,4 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="noise.png" />
-    <None Remove="ocean_girl.jpg" />
-    <None Remove="ryza1.PNG" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="FluentWpfChromes" Version="1.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="ocean_girl.jpg" />
-    <Resource Include="ryza1.PNG" />
-  </ItemGroup>
-
 </Project>
