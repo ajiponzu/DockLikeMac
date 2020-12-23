@@ -5,15 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DoclikeMac"
         mc:Ignorable="d"
-        Title="MainWindow" Height="55" Width="800" ResizeMode="NoResize" Visibility="Visible" Topmost="True" 
-        DpiChanged="Window_DpiChanged" MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" WindowStyle="None" >
+        Title="MainWindow"
+        Height="70"
+        Width="800" 
+        WindowStyle="None"
+        Background="#1946455F"
+        ResizeMode="NoResize"
+        Visibility="Visible"
+        Topmost="True" 
+        DpiChanged="Window_DpiChanged" 
+        MouseEnter="Window_MouseEnter" 
+        MouseLeave="Window_MouseLeave"
+        >
 
-    <Window.Background>
-        <ImageBrush ImageSource="/noise.png"
-                    Opacity="0.04"
-                    Stretch="None"
-                    TileMode="Tile"
-                    Viewport="0,0,128,128"
-                    ViewportUnits="Absolute" />
-    </Window.Background>
+    <Grid></Grid>
 </Window>
