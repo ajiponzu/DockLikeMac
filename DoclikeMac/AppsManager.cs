@@ -1,7 +1,10 @@
 ﻿using IWshRuntimeLibrary;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
-using System.Windows.Controls;
+using System.Windows;
+using System.Windows.Media.Imaging;
+using Image = System.Windows.Controls.Image;
 
 namespace DoclikeMac
 {
@@ -12,18 +15,14 @@ namespace DoclikeMac
         private class AppData
         {
             //実行ファイルのパス
-            public string path;
+            public string appPath;
 
             //アイコン画像
-            public Image icon = null;
+            public Image appIcon;
 
-            /// <summary>
-            ///
-            /// </summary>
-            /// <param name="path">ファイルパス</param>
             public AppData(string path)
             {
-                this.path = path;
+                appPath = path;
                 var extension = Path.GetExtension(path);
                 if (extension.Equals(".lnk"))
                 {
@@ -32,15 +31,28 @@ namespace DoclikeMac
                 ReadIcon();
             }
 
+            /// <summary>
+            /// ショートカットからリンク先の実行ファイルパスを取得する
+            /// </summary>
             private void handleShortcut()
             {
                 var shell = new IWshRuntimeLibrary.WshShell();
-                var sc = (IWshShortcut)shell.CreateShortcut(path);
-                path = sc.TargetPath;
+                var sc = (IWshShortcut)shell.CreateShortcut(appPath);
+                appPath = sc.TargetPath;
             }
 
+            /// <summary>
+            /// パスからアイコンを読み込む
+            /// </summary>
             private void ReadIcon()
             {
+                appIcon = new Image();
+                //winFormのアイコンをwpfのイメージに変換してからImage型のメンバに登録
+                var icon = Icon.ExtractAssociatedIcon(appPath);
+                appIcon.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(
+                    icon.Handle,
+                    new Int32Rect(0, 0, icon.Width, icon.Height),
+                    BitmapSizeOptions.FromEmptyOptions());
             }
         }
 
