@@ -10,6 +10,9 @@ namespace DoclikeMac
     /// </summary>
     public partial class MainWindow : Window
     {
+        //登録アプリの管理メンバ
+        private AppsManager manager;
+
         //画面解像度(横)
         private double screenWidth;
 
@@ -35,7 +38,16 @@ namespace DoclikeMac
         /// </summary>
         public MainWindow()
         {
+            manager = new AppsManager();
             InitializeComponent();
+            initView();
+        }
+
+        /// <summary>
+        /// 画面の初期化
+        /// </summary>
+        private void initView()
+        {
             /* 画面中央下に配置 */
             screenWidth = SystemParameters.PrimaryScreenWidth;
             screenHeight = SystemParameters.PrimaryScreenHeight - pad;
