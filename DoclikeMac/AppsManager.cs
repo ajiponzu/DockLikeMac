@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using Image = System.Windows.Controls.Image;
@@ -105,6 +106,15 @@ namespace DoclikeMac
         public void RunApp(ref int idx)
         {
             Process.Start(apps[idx].appPath);
+        }
+
+        /// <summary>
+        /// appsの要素数を返す
+        /// </summary>
+        /// <returns>apps.Count()の値</returns>
+        public int CountOfApps()
+        {
+            return apps.Count();
         }
     }
 }
