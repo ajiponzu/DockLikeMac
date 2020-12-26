@@ -1,5 +1,6 @@
 ﻿using IWshRuntimeLibrary;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows;
@@ -17,9 +18,6 @@ namespace DoclikeMac
             //実行ファイルのパス
             public string appPath;
 
-            //アイコン画像
-            public Image appIcon;
-
             public AppData(string path)
             {
                 appPath = path;
@@ -28,7 +26,6 @@ namespace DoclikeMac
                 {
                     handleShortcut();
                 }
-                ReadIcon();
             }
 
             /// <summary>
@@ -44,15 +41,17 @@ namespace DoclikeMac
             /// <summary>
             /// パスからアイコンを読み込む
             /// </summary>
-            private void ReadIcon()
+            /// <returns>読み込んだアイコン画像</returns>
+            public Image ReadIcon()
             {
-                appIcon = new Image();
+                var appIcon = new Image();
                 //winFormのアイコンをwpfのイメージに変換してからImage型のメンバに登録
                 var icon = Icon.ExtractAssociatedIcon(appPath);
                 appIcon.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(
                     icon.Handle,
                     new Int32Rect(0, 0, icon.Width, icon.Height),
                     BitmapSizeOptions.FromEmptyOptions());
+                return appIcon;
             }
         }
 
@@ -84,9 +83,28 @@ namespace DoclikeMac
         /// appsの指定場所のAppDataを削除
         /// </summary>
         /// <param name="idx"></param>
-        public void deleteAppData(ref int idx)
+        public void RemoveAppData(ref int idx)
         {
             apps.RemoveAt(idx);
+        }
+
+        /// <summary>
+        /// appsの指定場所のAppDataからアイコンを取得
+        /// </summary>
+        /// <param name="idx">appsの場所を指定</param>
+        /// <returns>指定場所のAppData.appPathに紐づいたアイコン画像</returns>
+        public Image GetAppIcon(ref int idx)
+        {
+            return apps[idx].ReadIcon();
+        }
+
+        /// <summary>
+        /// appsの指定場所のAppDataに登録されたファイルを実行
+        /// </summary>
+        /// <param name="idx">appsの場所を指定</param>
+        public void RunApp(ref int idx)
+        {
+            Process.Start(apps[idx].appPath);
         }
     }
 }
