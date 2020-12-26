@@ -69,5 +69,24 @@ namespace DoclikeMac
                 apps.Add(new AppData(path));
             }
         }
+
+        /// <summary>
+        /// appsの指定場所にAppDataを登録
+        /// </summary>
+        /// <param name="idx">appsの場所を指定</param>
+        /// <param name="path">AppData.appPathへ代入</param>
+        public void InsertAppData(ref int idx, string path)
+        {
+            apps.Insert(idx, new AppData(path));
+        }
+
+        /// <summary>
+        /// appsの指定場所のAppDataを削除
+        /// </summary>
+        /// <param name="idx"></param>
+        public void deleteAppData(ref int idx)
+        {
+            apps.RemoveAt(idx);
+        }
     }
 }
