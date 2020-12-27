@@ -63,11 +63,11 @@ namespace DoclikeMac
         {
             apps = new List<AppData>();
             ///デバッグ用
-            var pathList = Directory.GetFiles(@"./debugfolder/", "*");
-            foreach (var path in pathList)
-            {
-                apps.Add(new AppData(path));
-            }
+            //var pathList = Directory.GetFiles(@"./debugfolder/", "*");
+            //foreach (var path in pathList)
+            //{
+            //    apps.Add(new AppData(path));
+            //}
         }
 
         /// <summary>
