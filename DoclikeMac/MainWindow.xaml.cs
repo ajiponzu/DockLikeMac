@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 
@@ -11,7 +12,7 @@ namespace DoclikeMac
     public partial class MainWindow : Window
     {
         //登録アプリの管理メンバ
-        private AppsManager manager;
+        private readonly AppsManager manager;
 
         //画面解像度(横)
         private double screenWidth;
@@ -40,17 +41,19 @@ namespace DoclikeMac
         {
             manager = new AppsManager();
             InitializeComponent();
-            initWindow();
+            InitWindow();
+            InitIconList();
             AnimationWindow();
         }
 
         /// <summary>
         /// ウィンドウに関する初期処理
         /// </summary>
-        private void initWindow()
+        private void InitWindow()
         {
+            /* ウィンドウの幅はアイコンの数に比例する */
             var count = manager.CountOfApps();
-            Width = (count <= 0) ? Height : Height * count;
+            Width = ((count <= 0) ? Width : Width * count);
             /* 画面中央下に配置 */
             screenWidth = SystemParameters.PrimaryScreenWidth;
             screenHeight = SystemParameters.PrimaryScreenHeight - pad;
@@ -61,9 +64,13 @@ namespace DoclikeMac
         /// <summary>
         /// アイコンリスト(grid)の初期処理
         /// </summary>
-        private void initIconList()
+        private void InitIconList()
         {
-            
+            for (var idx = 0; idx < manager.CountOfApps(); idx++)
+            {
+                iconList.ColumnDefinitions.Add(new ColumnDefinition());
+                iconList.Children.Add(manager.GetAppIcon(ref idx));
+            }
         }
 
         /// <summary>

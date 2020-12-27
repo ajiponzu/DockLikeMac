@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Image = System.Windows.Controls.Image;
 
@@ -28,14 +29,15 @@ namespace DoclikeMac
                 var extension = Path.GetExtension(path);
                 if (extension.Equals(".lnk"))
                 {
-                    handleShortcut();
+                    HandleShortcut();
                 }
+                ReadIcon();
             }
 
             /// <summary>
             /// ショートカットからリンク先の実行ファイルパスを取得する
             /// </summary>
-            private void handleShortcut()
+            private void HandleShortcut()
             {
                 var shell = new IWshRuntimeLibrary.WshShell();
                 var sc = (IWshShortcut)shell.CreateShortcut(appPath);
@@ -58,7 +60,7 @@ namespace DoclikeMac
         }
 
         //アプリデータリスト
-        private List<AppData> apps;
+        private readonly List<AppData> apps;
 
         public AppsManager()
         {
@@ -97,6 +99,8 @@ namespace DoclikeMac
         /// <returns>指定場所のAppData.appPathに紐づいたアイコン画像</returns>
         public Image GetAppIcon(ref int idx)
         {
+            apps[idx].iconImage.SetValue(Grid.RowProperty, 0);
+            apps[idx].iconImage.SetValue(Grid.ColumnProperty, idx);
             return apps[idx].iconImage;
         }
 
