@@ -53,7 +53,7 @@ namespace DoclikeMac
         {
             /* ウィンドウの幅はアイコンの数に比例する */
             var count = manager.CountOfApps();
-            Width = ((count <= 0) ? Width : Width * count);
+            Width *= (count <= 0) ? 1 : count;
             /* 画面中央下に配置 */
             screenWidth = SystemParameters.PrimaryScreenWidth;
             screenHeight = SystemParameters.PrimaryScreenHeight - pad;
