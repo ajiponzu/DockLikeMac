@@ -19,6 +19,9 @@ namespace DoclikeMac
             //実行ファイルのパス
             public string appPath;
 
+            //実行ファイルのアイコン
+            public Image iconImage;
+
             public AppData(string path)
             {
                 appPath = path;
@@ -42,17 +45,15 @@ namespace DoclikeMac
             /// <summary>
             /// パスからアイコンを読み込む
             /// </summary>
-            /// <returns>読み込んだアイコン画像</returns>
-            public Image ReadIcon()
+            public void ReadIcon()
             {
-                var appIcon = new Image();
-                //winFormのアイコンをwpfのイメージに変換してからImage型のメンバに登録
+                iconImage = new Image();
+                //winFormのアイコンをwpfのイメージに変換して保存
                 var icon = Icon.ExtractAssociatedIcon(appPath);
-                appIcon.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(
+                iconImage.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(
                     icon.Handle,
                     new Int32Rect(0, 0, icon.Width, icon.Height),
                     BitmapSizeOptions.FromEmptyOptions());
-                return appIcon;
             }
         }
 
@@ -62,12 +63,12 @@ namespace DoclikeMac
         public AppsManager()
         {
             apps = new List<AppData>();
-            ///デバッグ用
-            //var pathList = Directory.GetFiles(@"./debugfolder/", "*");
-            //foreach (var path in pathList)
-            //{
-            //    apps.Add(new AppData(path));
-            //}
+            //デバッグ用
+            var pathList = Directory.GetFiles(@"./debugfolder/", "*");
+            foreach (var path in pathList)
+            {
+                apps.Add(new AppData(path));
+            }
         }
 
         /// <summary>
@@ -96,7 +97,7 @@ namespace DoclikeMac
         /// <returns>指定場所のAppData.appPathに紐づいたアイコン画像</returns>
         public Image GetAppIcon(ref int idx)
         {
-            return apps[idx].ReadIcon();
+            return apps[idx].iconImage;
         }
 
         /// <summary>

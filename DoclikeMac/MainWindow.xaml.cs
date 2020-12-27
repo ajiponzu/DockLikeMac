@@ -40,20 +40,30 @@ namespace DoclikeMac
         {
             manager = new AppsManager();
             InitializeComponent();
-            initView();
+            initWindow();
+            AnimationWindow();
         }
 
         /// <summary>
-        /// 画面の初期化
+        /// ウィンドウに関する初期処理
         /// </summary>
-        private void initView()
+        private void initWindow()
         {
+            var count = manager.CountOfApps();
+            Width = (count <= 0) ? Height : Height * count;
             /* 画面中央下に配置 */
             screenWidth = SystemParameters.PrimaryScreenWidth;
             screenHeight = SystemParameters.PrimaryScreenHeight - pad;
             Left = (screenWidth - Width) / 2;
             minY = Top = screenHeight - Height + pad * 2;
-            AnimationWindow();
+        }
+
+        /// <summary>
+        /// アイコンリスト(grid)の初期処理
+        /// </summary>
+        private void initIconList()
+        {
+            
         }
 
         /// <summary>
