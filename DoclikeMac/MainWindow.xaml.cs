@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -138,6 +140,7 @@ namespace DoclikeMac
 
         private void Window_MouseLeave(object sender, MouseEventArgs e)
         {
+            Thread.Sleep(320);
             AnimationWindow();
         }
     }
