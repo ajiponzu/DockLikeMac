@@ -73,7 +73,6 @@ namespace DoclikeMac
         }
 
         private const string folder = @"./debugfolder/"; //デバッグ用
-        //private const string folder = @"./app_sc_folder/"; //リリース用
 
         //アプリデータリスト
         private readonly List<AppData> apps;
@@ -81,13 +80,23 @@ namespace DoclikeMac
         public AppsManager()
         {
             apps = new List<AppData>();
-            var pathes = Directory.GetFiles(folder, "*.*");
+            var _pathList = GetPathList();
             var patterns = new string[] { ".exe", ".lnk" };
-            var pathList = pathes.Where(path => patterns.Any(pattern => path.ToLower().EndsWith(pattern)));
+            var pathList = _pathList.Where(_path => patterns.Any(_pattern => _path.ToLower().EndsWith(_pattern)));
             foreach (var path in pathList)
             {
                 apps.Add(new AppData(path));
             }
+        }
+
+        /// <summary>
+        /// 外部アプリのパスを取得
+        /// </summary>
+        /// <returns>パスを要素とするstring配列</returns>
+        private static string[] GetPathList()
+        {
+            var pathList =  Directory.GetFiles(folder, "*.*");
+            return pathList;
         }
 
         /// <summary>
