@@ -1,5 +1,4 @@
 ﻿using IWshRuntimeLibrary;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -73,14 +72,16 @@ namespace DoclikeMac
             }
         }
 
+        private const string folder = @"./debugfolder/"; //デバッグ用
+        //private const string folder = @"./app_sc_folder/"; //リリース用
+
         //アプリデータリスト
         private readonly List<AppData> apps;
 
         public AppsManager()
         {
             apps = new List<AppData>();
-            //デバッグ用
-            var pathes = Directory.GetFiles(@"./debugfolder/", "*.*");
+            var pathes = Directory.GetFiles(folder, "*.*");
             var patterns = new string[] { ".exe", ".lnk" };
             var pathList = pathes.Where(path => patterns.Any(pattern => path.ToLower().EndsWith(pattern)));
             foreach (var path in pathList)
