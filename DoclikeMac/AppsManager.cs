@@ -18,7 +18,7 @@ namespace DoclikeMac
         private class AppData
         {
             //実行ファイルのパス
-            public string appPath;
+            private string appPath;
 
             //実行ファイルのアイコン
             public Image iconImage;
@@ -32,6 +32,7 @@ namespace DoclikeMac
                     HandleShortcut();
                 }
                 ReadIcon();
+                RegisterIconEvent();
             }
 
             /// <summary>
@@ -56,6 +57,18 @@ namespace DoclikeMac
                     icon.Handle,
                     new Int32Rect(0, 0, icon.Width, icon.Height),
                     BitmapSizeOptions.FromEmptyOptions());
+            }
+
+            /// <summary>
+            /// アイコンのイベントコールバックを動的に登録する
+            /// </summary>
+            private void RegisterIconEvent()
+            {
+                //クリック時にアプリを起動する
+                iconImage.MouseLeftButtonDown += (sender, e) =>
+                {
+                    Process.Start(appPath);
+                };
             }
         }
 
@@ -105,21 +118,12 @@ namespace DoclikeMac
         }
 
         /// <summary>
-        /// appsの指定場所のAppDataに登録されたファイルを実行
-        /// </summary>
-        /// <param name="idx">appsの場所を指定</param>
-        public void RunApp(ref int idx)
-        {
-            Process.Start(apps[idx].appPath);
-        }
-
-        /// <summary>
         /// appsの要素数を返す
         /// </summary>
         /// <returns>apps.Count()の値</returns>
         public int CountOfApps()
         {
-            return apps.Count();
+            return apps.Count;
         }
     }
 }

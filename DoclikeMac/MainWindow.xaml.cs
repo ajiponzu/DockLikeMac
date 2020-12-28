@@ -113,8 +113,7 @@ namespace DoclikeMac
             screenWidth = SystemParameters.PrimaryScreenWidth;
             screenHeight = SystemParameters.PrimaryScreenHeight - pad;
             Left = (screenWidth - Width) / 2;
-            Top = screenHeight;
-            minY = screenHeight - Height + pad;
+            minY = Top = screenHeight - Height + pad * 2;
         }
 
         /// <summary>
