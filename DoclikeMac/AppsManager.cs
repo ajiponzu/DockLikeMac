@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Image = System.Windows.Controls.Image;
 
@@ -22,6 +23,12 @@ namespace DoclikeMac
 
             //実行ファイルのアイコン
             public Image iconImage;
+
+            //アイコンの拡大行列
+            private static readonly ScaleTransform expand = new ScaleTransform(1, 1, 30, 30);
+
+            //アイコンの縮小行列
+            private static readonly ScaleTransform narrow = new ScaleTransform(0.6, 0.6, 30, 30);
 
             public AppData(string path)
             {
@@ -57,6 +64,7 @@ namespace DoclikeMac
                     icon.Handle,
                     new Int32Rect(0, 0, icon.Width, icon.Height),
                     BitmapSizeOptions.FromEmptyOptions());
+                iconImage.RenderTransform = narrow;
             }
 
             /// <summary>
@@ -68,6 +76,18 @@ namespace DoclikeMac
                 iconImage.MouseLeftButtonDown += (sender, e) =>
                 {
                     Process.Start(appPath);
+                };
+
+                //カーソルに触れるとアイコン拡大
+                iconImage.MouseEnter += (sender, e) =>
+                {
+                    iconImage.RenderTransform = expand;
+                };
+
+                //カーソルが離れるとアイコン縮小
+                iconImage.MouseLeave += (sender, e) =>
+                {
+                    iconImage.RenderTransform = narrow;
                 };
             }
         }
@@ -95,7 +115,7 @@ namespace DoclikeMac
         /// <returns>パスを要素とするstring配列</returns>
         private static string[] GetPathList()
         {
-            var pathList =  Directory.GetFiles(folder, "*.*");
+            var pathList = Directory.GetFiles(folder, "*.*");
             return pathList;
         }
 

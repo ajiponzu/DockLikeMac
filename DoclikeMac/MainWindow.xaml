@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow"
         Height="80"
-        Width="120"
+        Width="90"
         WindowStyle="None"
-        Background="#D3FFFAFF"
+        Background="#2C3FE9F0"
         AllowsTransparency="True"
         ResizeMode="NoResize"
         Visibility="Visible"
@@ -19,7 +19,7 @@
         MouseLeave="Window_MouseLeave" ShowInTaskbar="False"
         >
 
-    <Grid x:Name="iconList" Margin="15,3,15,3" >
+    <Grid x:Name="iconList" Margin="8,8,8,8" Background="#DFFFFFFF">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
