@@ -26,6 +26,7 @@ namespace DoclikeMac
             //実行ファイルのアイコン
             public Image iconImage;
 
+            //アニメーションタイマー
             private DispatcherTimer timer = null;
 
             //アイコンの拡大行列
@@ -38,10 +39,10 @@ namespace DoclikeMac
             private readonly ScaleTransform tempScaleMat = new ScaleTransform(0.60, 0.60, 40, 40);
 
             //アイコンの伸縮の1フレームあたりの秒数
-            private static readonly int spf = 8;
+            private static readonly int spf = 16;
 
             //アイコンの1フレームあたりの伸縮
-            private float delta = -0.09f;
+            private float delta = -0.12f;
 
             public AppData(string path)
             {
@@ -110,7 +111,7 @@ namespace DoclikeMac
             /// <returns>t: DispatcherTimer</returns>
             private DispatcherTimer CreateTimer()
             {
-                var t = new DispatcherTimer(DispatcherPriority.SystemIdle)
+                var t = new DispatcherTimer(DispatcherPriority.Render)
                 {
                     Interval = TimeSpan.FromMilliseconds(spf),
                 };

@@ -26,14 +26,14 @@ namespace DoclikeMac
         //ウィンドウy座標最小値
         private double minY;
 
-        //ウィンドウの表示・非表示アニメーションのためのメンバ
+        //アニメーションタイマー
         private DispatcherTimer timer = null;
 
         //ウィンドウ表示・非表示の1フレームあたりの秒数
         public readonly int spf = 16;
 
         //ウィンドウの1フレームあたりの移動距離
-        private float delta = 3.8f;
+        private float delta = 4.3f;
 
         /// <summary>
         /// コンストラクタ
@@ -80,7 +80,7 @@ namespace DoclikeMac
         /// <returns>t: DispatcherTimer</returns>
         private DispatcherTimer CreateTimer()
         {
-            var t = new DispatcherTimer(DispatcherPriority.SystemIdle)
+            var t = new DispatcherTimer(DispatcherPriority.Render)
             {
                 Interval = TimeSpan.FromMilliseconds(spf),
             };

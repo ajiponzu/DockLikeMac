@@ -18,7 +18,7 @@
         MouseEnter="Window_MouseEnter"
         MouseLeave="Window_MouseLeave" ShowInTaskbar="False">
 
-    <Grid x:Name="iconList" Margin="8,8,8,0" Background="#BFFFFFFF">
+    <Grid x:Name="iconList" Margin="12,5,12,0" Background="#BFFFFFFF">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
