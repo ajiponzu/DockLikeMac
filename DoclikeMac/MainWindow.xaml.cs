@@ -29,10 +29,11 @@ namespace DoclikeMac
         //ウィンドウの表示・非表示アニメーションのためのメンバ
         private DispatcherTimer timer = null;
 
-        //ウィンドウ表示・非表示スピード
-        private readonly int spf = 16;
+        //ウィンドウ表示・非表示の1フレームあたりの秒数
+        public readonly int spf = 16;
 
-        private float delta = 4f;
+        //ウィンドウの1フレームあたりの移動距離
+        private float delta = 3.8f;
 
         /// <summary>
         /// コンストラクタ
@@ -96,6 +97,7 @@ namespace DoclikeMac
                 else if (Top > screenHeight && delta < 0)
                 {
                     Top = screenHeight;
+                    iconList.Opacity = 0;
                     t.Stop();
                 }
             };
@@ -130,6 +132,7 @@ namespace DoclikeMac
 
         private void Window_MouseEnter(object sender, MouseEventArgs e)
         {
+            iconList.Opacity = 1;
             AnimationWindow();
         }
 

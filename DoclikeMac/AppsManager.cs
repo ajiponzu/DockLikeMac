@@ -1,4 +1,5 @@
 ﻿using IWshRuntimeLibrary;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -8,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using Image = System.Windows.Controls.Image;
 
 namespace DoclikeMac
@@ -24,11 +26,22 @@ namespace DoclikeMac
             //実行ファイルのアイコン
             public Image iconImage;
 
+            private DispatcherTimer timer = null;
+
             //アイコンの拡大行列
-            private static readonly ScaleTransform expand = new ScaleTransform(1, 1, 30, 30);
+            private static readonly ScaleTransform expand = new ScaleTransform(1, 1, 40, 40);
 
             //アイコンの縮小行列
-            private static readonly ScaleTransform narrow = new ScaleTransform(0.6, 0.6, 30, 30);
+            private static readonly ScaleTransform narrow = new ScaleTransform(0.60, 0.60, 40, 40);
+
+            //アイコンの伸縮のための行列
+            private readonly ScaleTransform tempScaleMat = new ScaleTransform(0.60, 0.60, 40, 40);
+
+            //アイコンの伸縮の1フレームあたりの秒数
+            private static readonly int spf = 8;
+
+            //アイコンの1フレームあたりの伸縮
+            private float delta = -0.09f;
 
             public AppData(string path)
             {
@@ -64,7 +77,7 @@ namespace DoclikeMac
                     icon.Handle,
                     new Int32Rect(0, 0, icon.Width, icon.Height),
                     BitmapSizeOptions.FromEmptyOptions());
-                iconImage.RenderTransform = narrow;
+                iconImage.RenderTransform = tempScaleMat;
             }
 
             /// <summary>
@@ -81,14 +94,58 @@ namespace DoclikeMac
                 //カーソルに触れるとアイコン拡大
                 iconImage.MouseEnter += (sender, e) =>
                 {
-                    iconImage.RenderTransform = expand;
+                    AnimationIcon();
                 };
 
                 //カーソルが離れるとアイコン縮小
                 iconImage.MouseLeave += (sender, e) =>
                 {
-                    iconImage.RenderTransform = narrow;
+                    AnimationIcon();
                 };
+            }
+
+            /// <summary>
+            /// updateスレッド生成
+            /// </summary>
+            /// <returns>t: DispatcherTimer</returns>
+            private DispatcherTimer CreateTimer()
+            {
+                var t = new DispatcherTimer(DispatcherPriority.SystemIdle)
+                {
+                    Interval = TimeSpan.FromMilliseconds(spf),
+                };
+
+                t.Tick += (sender, e) =>
+                {
+                    tempScaleMat.ScaleX += delta;
+                    tempScaleMat.ScaleY += delta;
+                    //規定サイズを超えると終了
+                    if (tempScaleMat.ScaleX > expand.ScaleX && delta > 0)
+                    {
+                        tempScaleMat.ScaleX = expand.ScaleX;
+                        tempScaleMat.ScaleY = expand.ScaleY;
+                        t.Stop();
+                    }
+                    else if (tempScaleMat.ScaleX < narrow.ScaleX && delta < 0)
+                    {
+                        tempScaleMat.ScaleX = narrow.ScaleX;
+                        tempScaleMat.ScaleY = narrow.ScaleY;
+                        t.Stop();
+                    }
+                };
+
+                return t;
+            }
+
+            /// <summary>
+            /// アイコンの伸縮アニメーション
+            /// </summary>
+            private void AnimationIcon()
+            {
+                delta *= -1;
+                if (timer != null) timer.Stop();
+                timer = CreateTimer();
+                timer.Start();
             }
         }
 

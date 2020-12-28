@@ -7,21 +7,20 @@
         mc:Ignorable="d"
         Title="MainWindow"
         Height="80"
-        Width="90"
+        Width="80"
         WindowStyle="None"
         Background="#2C3FE9F0"
         AllowsTransparency="True"
         ResizeMode="NoResize"
         Visibility="Visible"
-        Topmost="True" 
-        DpiChanged="Window_DpiChanged" 
-        MouseEnter="Window_MouseEnter" 
-        MouseLeave="Window_MouseLeave" ShowInTaskbar="False"
-        >
+        Topmost="True"
+        DpiChanged="Window_DpiChanged"
+        MouseEnter="Window_MouseEnter"
+        MouseLeave="Window_MouseLeave" ShowInTaskbar="False">
 
-    <Grid x:Name="iconList" Margin="8,8,8,8" Background="#DFFFFFFF">
+    <Grid x:Name="iconList" Margin="8,8,8,0" Background="#BFFFFFFF">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
     </Grid>
 </Window>
