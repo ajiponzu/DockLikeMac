@@ -9,7 +9,7 @@
         Height="80"
         Width="100"
         WindowStyle="None"
-        Background="#AC3FE9F0"
+        Background="#8C2F59F0"
         AllowsTransparency="True"
         ResizeMode="NoResize"
         Visibility="Visible"

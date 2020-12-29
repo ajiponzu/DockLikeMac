@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Threading;
 
 namespace DoclikeMac
@@ -39,7 +41,7 @@ namespace DoclikeMac
         //ウィンドウの1フレームあたりの移動距離
         private float delta;
 
-        private bool animationFlag = false;
+        private static bool animationFlag = false;
 
         /// <summary>
         /// コンストラクタ
