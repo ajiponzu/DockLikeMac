@@ -20,10 +20,10 @@
     <Grid x:Name="grid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="40" />
+            <ColumnDefinition Width="44" />
         </Grid.ColumnDefinitions>
         <Grid x:Name="iconList" Margin="12,12,9,8" Background="#BFFFFFFF" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
-        <Button Content="open" Grid.Column="1" Margin="0,64,0,0" Width="40" BorderBrush="#FFD6FF1D" Background="#FF9D9AE3" FontSize="12" FontFamily="Elephant"/>
-        <Button Content="lock" Grid.Column="1" Margin="0,40,0,24" Width="40" BorderBrush="#FFD6FF1D" Background="#FF9D9AE3" FontSize="12" FontFamily="Elephant"/>
+        <Button x:Name="openButton" Content="open" Grid.Column="1" Margin="0,64,0,0" BorderBrush="#FFD6FF1D" Background="#FF9D9AE3" FontSize="12" FontFamily="Elephant"/>
+        <Button x:Name="lockButton" Content="unlock" Grid.Column="1" Margin="0,40,0,24" BorderBrush="#FFD6FF1D" Background="#FF9D9AE3" FontSize="12" FontFamily="Elephant" Click="LockButton_Click" />
     </Grid>
 </Window>

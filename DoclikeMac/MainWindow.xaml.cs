@@ -39,7 +39,11 @@ namespace DoclikeMac
         //ウィンドウの1フレームあたりの移動距離
         private float delta;
 
-        private static bool animationFlag = false;
+        //ウィンドウアニメーションフラグ
+        private bool animationFlag = false;
+
+        //ウィンドウ位置固定フラグ
+        private bool isUnLock = false;
 
         /// <summary>
         /// コンストラクタ
@@ -121,27 +125,26 @@ namespace DoclikeMac
         /* Window（親クラス)のイベントをオーバーライド */
 
         /// <summary>
-        /// ウィンドウを選択したとき(曖昧)
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnActivated(EventArgs e)
-        {
-            base.OnActivated(e);
-            Top = minY;
-            grid.Opacity = 1;
-            animationFlag = false;
-        }
-
-        /// <summary>
         /// 他アプリを表示した時
         /// </summary>
         /// <param name="e"></param>
         protected override void OnDeactivated(EventArgs e)
         {
             base.OnDeactivated(e);
-            Top = screenHeight;
-            grid.Opacity = 0;
-            animationFlag = true;
+            if (isUnLock)
+            {
+                Top = screenHeight;
+                grid.Opacity = 0;
+                animationFlag = true;
+                lockButton.Content = "lock";
+            }
+            else
+            {
+                Top = minY;
+                grid.Opacity = 1;
+                animationFlag = false;
+                lockButton.Content = "unlock";
+            }
         }
 
         /* xamlイベント */
@@ -184,6 +187,20 @@ namespace DoclikeMac
                 delta = -deltaAbs;
                 Thread.Sleep(320);
                 AnimationWindow();
+            }
+        }
+
+        private void LockButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (animationFlag)
+            {
+                isUnLock = animationFlag = false;
+                lockButton.Content = "unlock";
+            }
+            else
+            {
+                isUnLock = animationFlag = true;
+                lockButton.Content = "lock";
             }
         }
     }
