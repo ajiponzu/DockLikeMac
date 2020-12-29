@@ -9,6 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="pattern1.png" />
+    <None Remove="pattern2.png" />
+    <None Remove="pattern3.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <COMReference Include="IWshRuntimeLibrary.dll">
       <WrapperTool>tlbimp</WrapperTool>
       <VersionMinor>0</VersionMinor>
@@ -21,6 +27,12 @@
 
   <ItemGroup>
     <PackageReference Include="System.Drawing.Common" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="pattern1.png" />
+    <Resource Include="pattern2.png" />
+    <Resource Include="pattern3.png" />
   </ItemGroup>
 
 </Project>

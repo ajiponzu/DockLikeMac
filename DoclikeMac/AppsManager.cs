@@ -30,7 +30,7 @@ namespace DoclikeMac
             private DispatcherTimer timer = null;
 
             //アイコンの拡大行列
-            private static readonly ScaleTransform expand = new ScaleTransform(1.5, 1.5, 40, 40);
+            private static readonly ScaleTransform expand = new ScaleTransform(1.36, 1.36, 40, 40);
 
             //アイコンの縮小行列
             private static readonly ScaleTransform narrow = new ScaleTransform(0.8, 0.8, 40, 40);
@@ -42,7 +42,7 @@ namespace DoclikeMac
             private static readonly int spf = 16;
 
             //アイコンの1フレームあたりの拡大スピード
-            private static readonly float deltaExpand = 0.12f;
+            private static readonly float deltaExpand = 0.20f;
 
             //アイコンの1フレームあたりの縮小スピード
             private static readonly float deltaNarrow = -0.06f;

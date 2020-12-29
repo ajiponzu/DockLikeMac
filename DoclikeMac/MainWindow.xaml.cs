@@ -110,7 +110,7 @@ namespace DoclikeMac
                 else if (Top > screenHeight && delta < 0)
                 {
                     Top = screenHeight;
-                    iconList.Opacity = 0;
+                    grid.Opacity = 0;
                     t.Stop();
                 }
             };
@@ -121,14 +121,14 @@ namespace DoclikeMac
         /* Window（親クラス)のイベントをオーバーライド */
 
         /// <summary>
-        /// ウィンドウ内の何もないところをクリックしたときなど
+        /// ウィンドウを選択したとき(曖昧)
         /// </summary>
         /// <param name="e"></param>
         protected override void OnActivated(EventArgs e)
         {
             base.OnActivated(e);
             Top = minY;
-            iconList.Opacity = 1;
+            grid.Opacity = 1;
             animationFlag = false;
         }
 
@@ -140,7 +140,7 @@ namespace DoclikeMac
         {
             base.OnDeactivated(e);
             Top = screenHeight;
-            iconList.Opacity = 0;
+            grid.Opacity = 0;
             animationFlag = true;
         }
 
@@ -172,7 +172,7 @@ namespace DoclikeMac
             if (animationFlag)
             {
                 delta = deltaAbs;
-                iconList.Opacity = 1;
+                grid.Opacity = 1;
                 AnimationWindow();
             }
         }
