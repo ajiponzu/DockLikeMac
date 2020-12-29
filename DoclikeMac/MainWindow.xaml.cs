@@ -208,5 +208,10 @@ namespace DoclikeMac
                 lockButton.Content = txtAtUnlock;
             }
         }
+
+        private void OpenButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

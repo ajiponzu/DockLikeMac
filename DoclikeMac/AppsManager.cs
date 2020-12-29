@@ -111,6 +111,26 @@ namespace DoclikeMac
                     delta = deltaNarrow;
                     AnimationIcon();
                 };
+
+                iconImage.DragOver += (sender, e) =>
+                {
+                    if (e.Data.GetDataPresent(System.Windows.DataFormats.FileDrop, true))
+                    {
+                        e.Effects = System.Windows.DragDropEffects.Copy;
+                    }
+                    else
+                    {
+                        e.Effects = System.Windows.DragDropEffects.None;
+                    }
+                    e.Handled = true;
+                };
+
+                iconImage.AllowDrop = true;
+                iconImage.Drop += (sender, e) =>
+                {
+                    if (e.Data.GetData(System.Windows.DataFormats.FileDrop) is not string[] dropFiles) return;
+                    Process.Start(appPath, dropFiles[0]);                    
+                };
             }
 
             /// <summary>
