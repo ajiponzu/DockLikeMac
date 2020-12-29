@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:DoclikeMac"
         mc:Ignorable="d"
         Title="MainWindow"
-        Height="80"
-        Width="100"
+        Height="88"
+        Width="110"
         WindowStyle="None"
         Background="#8C2F59F0"
         AllowsTransparency="True"
@@ -17,9 +17,5 @@
         MouseEnter="Window_MouseEnter"
         MouseLeave="Window_MouseLeave" ShowInTaskbar="False" Topmost="True">
 
-    <Grid x:Name="iconList" Margin="15,8,15,0" Background="#BFFFFFFF">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
-        </Grid.RowDefinitions>
-    </Grid>
+    <Grid x:Name="iconList" Margin="22,18,22,5" Background="#BFFFFFFF" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
 </Window>

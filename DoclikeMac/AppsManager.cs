@@ -30,19 +30,25 @@ namespace DoclikeMac
             private DispatcherTimer timer = null;
 
             //アイコンの拡大行列
-            private static readonly ScaleTransform expand = new ScaleTransform(1, 1, 40, 40);
+            private static readonly ScaleTransform expand = new ScaleTransform(1.5, 1.5, 40, 40);
 
             //アイコンの縮小行列
-            private static readonly ScaleTransform narrow = new ScaleTransform(0.60, 0.60, 40, 40);
+            private static readonly ScaleTransform narrow = new ScaleTransform(0.8, 0.8, 40, 40);
 
             //アイコンの伸縮のための行列
-            private readonly ScaleTransform tempScaleMat = new ScaleTransform(0.60, 0.60, 40, 40);
+            private readonly ScaleTransform tempScaleMat = new ScaleTransform(0.8, 0.8, 40, 40);
 
             //アイコンの伸縮の1フレームあたりの秒数
             private static readonly int spf = 16;
 
+            //アイコンの1フレームあたりの拡大スピード
+            private static readonly float deltaExpand = 0.12f;
+
+            //アイコンの1フレームあたりの縮小スピード
+            private static readonly float deltaNarrow = -0.06f;
+
             //アイコンの1フレームあたりの伸縮
-            private float delta = -0.12f;
+            private float delta;
 
             public AppData(string path)
             {
@@ -95,12 +101,14 @@ namespace DoclikeMac
                 //カーソルに触れるとアイコン拡大
                 iconImage.MouseEnter += (sender, e) =>
                 {
+                    delta = deltaExpand;
                     AnimationIcon();
                 };
 
                 //カーソルが離れるとアイコン縮小
                 iconImage.MouseLeave += (sender, e) =>
                 {
+                    delta = deltaNarrow;
                     AnimationIcon();
                 };
             }
@@ -143,7 +151,6 @@ namespace DoclikeMac
             /// </summary>
             private void AnimationIcon()
             {
-                delta *= -1;
                 if (timer != null) timer.Stop();
                 timer = CreateTimer();
                 timer.Start();
