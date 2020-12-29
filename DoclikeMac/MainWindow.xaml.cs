@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -34,8 +33,13 @@ namespace DoclikeMac
         //ウィンドウ表示・非表示の1フレームあたりの秒数
         public readonly int spf = 16;
 
+        //ウィンドウの1フレームあたりの移動距離の絶対値
+        private readonly float deltaAbs = 4.3f;
+
         //ウィンドウの1フレームあたりの移動距離
-        private float delta = 4.3f;
+        private float delta;
+
+        private bool animationFlag = false;
 
         /// <summary>
         /// コンストラクタ
@@ -46,7 +50,6 @@ namespace DoclikeMac
             InitializeComponent();
             InitWindow();
             InitIconList();
-            AnimationWindow();
         }
 
         /// <summary>
@@ -57,6 +60,14 @@ namespace DoclikeMac
             /* ウィンドウの幅はアイコンの数に比例する */
             var count = manager.CountOfApps();
             Width *= (count <= 0) ? 1 : count;
+            SetWindowInitPos();
+        }
+
+        /// <summary>
+        /// ウィンドウの初期位置を設定
+        /// </summary>
+        private void SetWindowInitPos()
+        {
             /* 画面中央下に配置 */
             screenWidth = SystemParameters.PrimaryScreenWidth;
             screenHeight = SystemParameters.PrimaryScreenHeight - pad;
@@ -107,6 +118,34 @@ namespace DoclikeMac
             return t;
         }
 
+        /* Window（親クラス)のイベントをオーバーライド */
+
+        /// <summary>
+        /// ウィンドウ内の何もないところをクリックしたときなど
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnActivated(EventArgs e)
+        {
+            base.OnActivated(e);
+            Top = minY;
+            iconList.Opacity = 1;
+            animationFlag = false;
+        }
+
+        /// <summary>
+        /// 他アプリを表示した時
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnDeactivated(EventArgs e)
+        {
+            base.OnDeactivated(e);
+            Top = screenHeight;
+            iconList.Opacity = 0;
+            animationFlag = true;
+        }
+
+        /* xamlイベント */
+
         /// <summary>
         /// dpiが変更された時のウィンドウ再配置メソッド
         /// </summary>
@@ -114,10 +153,7 @@ namespace DoclikeMac
         /// <param name="e"></param>
         private void Window_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            screenWidth = SystemParameters.PrimaryScreenWidth;
-            screenHeight = SystemParameters.PrimaryScreenHeight - pad;
-            Left = (screenWidth - Width) / 2;
-            minY = Top = screenHeight - Height + pad * 2;
+            SetWindowInitPos();
         }
 
         /// <summary>
@@ -125,7 +161,6 @@ namespace DoclikeMac
         /// </summary>
         private void AnimationWindow()
         {
-            delta *= -1;
             if (timer != null) timer.Stop();
             timer = CreateTimer();
             timer.Start();
@@ -134,14 +169,22 @@ namespace DoclikeMac
 
         private void Window_MouseEnter(object sender, MouseEventArgs e)
         {
-            iconList.Opacity = 1;
-            AnimationWindow();
+            if (animationFlag)
+            {
+                delta = deltaAbs;
+                iconList.Opacity = 1;
+                AnimationWindow();
+            }
         }
 
         private void Window_MouseLeave(object sender, MouseEventArgs e)
         {
-            Thread.Sleep(320);
-            AnimationWindow();
+            if (animationFlag)
+            {
+                delta = -deltaAbs;
+                Thread.Sleep(320);
+                AnimationWindow();
+            }
         }
     }
 }

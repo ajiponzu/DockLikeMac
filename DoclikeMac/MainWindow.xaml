@@ -7,18 +7,17 @@
         mc:Ignorable="d"
         Title="MainWindow"
         Height="80"
-        Width="80"
+        Width="100"
         WindowStyle="None"
-        Background="#2C3FE9F0"
+        Background="#AC3FE9F0"
         AllowsTransparency="True"
         ResizeMode="NoResize"
         Visibility="Visible"
-        Topmost="True"
         DpiChanged="Window_DpiChanged"
         MouseEnter="Window_MouseEnter"
-        MouseLeave="Window_MouseLeave" ShowInTaskbar="False">
+        MouseLeave="Window_MouseLeave" ShowInTaskbar="False" Topmost="True">
 
-    <Grid x:Name="iconList" Margin="12,5,12,0" Background="#BFFFFFFF">
+    <Grid x:Name="iconList" Margin="15,8,15,0" Background="#BFFFFFFF">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
