@@ -42,8 +42,13 @@ namespace DoclikeMac
         //ウィンドウアニメーションフラグ
         private bool animationFlag = false;
 
-        //ウィンドウ位置固定フラグ
-        private bool isUnLock = false;
+        //ウィンドウ自動非表示フラグ
+        private bool isUnlock = false;
+
+        //lockButtonテキスト1
+        private const string txtAtUnlock = "lock";
+        //lockButtonテキスト2
+        private const string txtAtLock = "unlock";
 
         /// <summary>
         /// コンストラクタ
@@ -131,19 +136,19 @@ namespace DoclikeMac
         protected override void OnDeactivated(EventArgs e)
         {
             base.OnDeactivated(e);
-            if (isUnLock)
+            if (isUnlock)
             {
                 Top = screenHeight;
                 grid.Opacity = 0;
                 animationFlag = true;
-                lockButton.Content = "lock";
+                lockButton.Content = txtAtUnlock;
             }
             else
             {
                 Top = minY;
                 grid.Opacity = 1;
                 animationFlag = false;
-                lockButton.Content = "unlock";
+                lockButton.Content = txtAtLock;
             }
         }
 
@@ -194,13 +199,13 @@ namespace DoclikeMac
         {
             if (animationFlag)
             {
-                isUnLock = animationFlag = false;
-                lockButton.Content = "unlock";
+                isUnlock = animationFlag = false;
+                lockButton.Content = txtAtLock;
             }
             else
             {
-                isUnLock = animationFlag = true;
-                lockButton.Content = "lock";
+                isUnlock = animationFlag = true;
+                lockButton.Content = txtAtUnlock;
             }
         }
     }
