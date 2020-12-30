@@ -103,6 +103,7 @@ namespace DoclikeMac
                 //カーソルに触れるとアイコン拡大
                 iconImage.MouseEnter += (sender, e) =>
                 {
+                    if (MainWindow.isEdit) return;
                     delta = deltaExpand;
                     AnimationIcon();
                 };
@@ -110,6 +111,7 @@ namespace DoclikeMac
                 //カーソルが離れるとアイコン縮小
                 iconImage.MouseLeave += (sender, e) =>
                 {
+                    if (MainWindow.isEdit) return;
                     delta = deltaNarrow;
                     AnimationIcon();
                 };
