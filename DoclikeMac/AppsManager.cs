@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Image = System.Windows.Controls.Image;
+using Point = System.Windows.Point;
 
 namespace DoclikeMac
 {
@@ -49,6 +50,12 @@ namespace DoclikeMac
 
             //アイコンの1フレームあたりの伸縮
             private float delta;
+
+            private static List<Point> staticPosList = new List<Point>();
+            private Point staticPos;
+            private Point curPos;
+
+            public static bool isMovingIcon = false;
 
             public AppData(string path)
             {
@@ -93,11 +100,22 @@ namespace DoclikeMac
             /// </summary>
             private void RegisterIconEvent()
             {
-                //クリック時にアプリを起動する
+                //クリック時
                 iconImage.MouseLeftButtonDown += (sender, e) =>
                 {
-                    if (MainWindow.isEdit) return;
-                    Process.Start(appPath);
+                    if (MainWindow.isEdit)
+                    {
+                        //アイコンを動かす準備
+                        iconImage.Opacity = 0.6;
+                        staticPos = e.GetPosition((IInputElement)iconImage.Parent);
+                        curPos = e.GetPosition((IInputElement)iconImage.Parent);
+                        iconImage.CaptureMouse();
+                    }
+                    else
+                    {
+                        //アプリを起動する
+                        Process.Start(appPath);
+                    }
                 };
 
                 //カーソルに触れるとアイコン拡大
@@ -138,6 +156,34 @@ namespace DoclikeMac
                     if (MainWindow.isEdit) return;
                     if (e.Data.GetData(DataFormats.FileDrop) is not string[] dropFiles) return;
                     Process.Start(appPath, dropFiles[0]);
+                };
+
+                iconImage.MouseMove += (sender, e) =>
+                {
+                    if (MainWindow.isEdit && iconImage.IsMouseCaptured)
+                    {
+                        Vector v = curPos - e.GetPosition((IInputElement)iconImage.Parent);
+                        MoveIcon(v);
+                        curPos = e.GetPosition((IInputElement)iconImage.Parent);
+                    }
+                };
+
+                iconImage.MouseLeftButtonUp += (sender, e) =>
+                {
+                    if (MainWindow.isEdit)
+                    {
+                        iconImage.Opacity = 1;
+                        iconImage.ReleaseMouseCapture();
+                        var pos = e.GetPosition((IInputElement)iconImage.Parent);
+                        if (pos.X < 0 || pos.Y < 0)
+                        {
+                        }
+                        else
+                        {
+                            Vector v = curPos - staticPos;
+                            MoveIcon(v);
+                        }
+                    }
                 };
             }
 
@@ -182,6 +228,13 @@ namespace DoclikeMac
                 if (timer != null) timer.Stop();
                 timer = CreateTimer();
                 timer.Start();
+            }
+
+            private void MoveIcon(Vector v)
+            {
+                var matrix = iconImage.RenderTransform.Value;
+                matrix.Translate(-v.X, -v.Y);
+                iconImage.RenderTransform = new MatrixTransform(matrix);
             }
         }
 

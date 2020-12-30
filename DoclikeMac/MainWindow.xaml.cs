@@ -262,17 +262,18 @@ namespace DoclikeMac
         /// <param name="e"></param>
         private void Window_DragOver(object sender, DragEventArgs e)
         {
-            if (!isEdit) return;
-            if (e.Data.GetDataPresent(DataFormats.FileDrop, true))
+            if (isEdit)
             {
-                e.Effects = DragDropEffects.Copy;
+                if (e.Data.GetDataPresent(DataFormats.FileDrop, true))
+                {
+                    e.Effects = DragDropEffects.Copy;
+                }
+                else
+                {
+                    e.Effects = DragDropEffects.None;
+                }
+                e.Handled = true;
             }
-            else
-            {
-                e.Effects = DragDropEffects.None;
-            }
-
-            e.Handled = true;
         }
 
         /// <summary>
@@ -282,16 +283,18 @@ namespace DoclikeMac
         /// <param name="e"></param>
         private void Window_Drop(object sender, DragEventArgs e)
         {
-            if (!isEdit) return;
-            iconList.Children.RemoveAt(iconList.Children.Count - 1);
-            iconList.ColumnDefinitions.RemoveAt(iconList.ColumnDefinitions.Count - 1);
-            if (e.Data.GetData(DataFormats.FileDrop) is not string[] dropFiles) return;
-            if (dropFiles[0].EndsWith(".exe") || dropFiles[0].EndsWith(".lnk"))
+            if (isEdit)
             {
-                Width += startWidth;
-                manager.InsertAppData(dropFiles[0]);
-                iconList.ColumnDefinitions.Add(new ColumnDefinition());
-                iconList.Children.Add(manager.GetAppIcon());
+                iconList.Children.RemoveAt(iconList.Children.Count - 1);
+                iconList.ColumnDefinitions.RemoveAt(iconList.ColumnDefinitions.Count - 1);
+                if (e.Data.GetData(DataFormats.FileDrop) is not string[] dropFiles) return;
+                if (dropFiles[0].EndsWith(".exe") || dropFiles[0].EndsWith(".lnk"))
+                {
+                    Width += startWidth;
+                    manager.InsertAppData(dropFiles[0]);
+                    iconList.ColumnDefinitions.Add(new ColumnDefinition());
+                    iconList.Children.Add(manager.GetAppIcon());
+                }
             }
         }
 
@@ -302,9 +305,11 @@ namespace DoclikeMac
         /// <param name="e"></param>
         private void Window_DragEnter(object sender, DragEventArgs e)
         {
-            if (!isEdit) return;
-            iconList.ColumnDefinitions.Add(new ColumnDefinition());
-            iconList.Children.Add(new Image());
+            if (isEdit)
+            {
+                iconList.ColumnDefinitions.Add(new ColumnDefinition());
+                iconList.Children.Add(new Image());
+            }
         }
 
         /// <summary>
@@ -314,9 +319,11 @@ namespace DoclikeMac
         /// <param name="e"></param>
         private void Window_DragLeave(object sender, DragEventArgs e)
         {
-            if (!isEdit) return;
-            iconList.Children.RemoveAt(iconList.Children.Count - 1);
-            iconList.ColumnDefinitions.RemoveAt(iconList.ColumnDefinitions.Count - 1);
+            if (isEdit)
+            {
+                iconList.Children.RemoveAt(iconList.Children.Count - 1);
+                iconList.ColumnDefinitions.RemoveAt(iconList.ColumnDefinitions.Count - 1);
+            }
         }
 
         /// <summary>
