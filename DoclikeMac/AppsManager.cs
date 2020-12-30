@@ -36,6 +36,10 @@ namespace DoclikeMac
             return pathList;
         }
 
+        /// <summary>
+        /// appsの末尾に要素を追加
+        /// </summary>
+        /// <param name="path"></param>
         public void InsertAppData(string path)
         {
             apps.Add(new AppData(path));
@@ -47,6 +51,15 @@ namespace DoclikeMac
         public void RemoveAppData()
         {
             apps.RemoveAt(apps.Count - 1);
+        }
+
+        /// <summary>
+        /// appsの要素を削除
+        /// </summary>
+        /// <param name="idx">削除対象のインデックス</param>
+        public void RemoveAppData(int idx)
+        {
+            apps.RemoveAt(idx);
         }
 
         /// <summary>
@@ -95,6 +108,11 @@ namespace DoclikeMac
             apps[idx2] = temp;
         }
 
+        /// <summary>
+        /// 画像データの参照から，インデックスを特定
+        /// </summary>
+        /// <param name="image">画像データへの参照</param>
+        /// <returns>idx: 画像データに対応するインデックス</returns>
         public int GetIndexByImage(Image image)
         {
             int idx = -1;

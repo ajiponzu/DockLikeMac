@@ -172,7 +172,7 @@ namespace DoclikeMac
                 }
             };
 
-            //アイコンの移動
+            //アイコンの位置確定
             iconImage.MouseLeftButtonUp += (sender, e) =>
             {
                 if (MainWindow.isEdit)
@@ -180,7 +180,6 @@ namespace DoclikeMac
                     iconImage.Opacity = 1;
                     iconImage.ReleaseMouseCapture();
                     isMovingIcon = false;
-                    movingImage = null;
                     //アイコン位置を元に戻す
                     MoveIcon(curPos - staticPos);
                     iconImage.RenderTransform = tempScaleMat;

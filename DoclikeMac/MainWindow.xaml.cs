@@ -247,7 +247,7 @@ namespace DoclikeMac
                 editButton.Content = txtAtExe;
             }
         }
-        
+
         /// <summary>
         /// フォルダーランチャーを開く
         /// </summary>
@@ -331,7 +331,7 @@ namespace DoclikeMac
         }
 
         /// <summary>
-        /// 編集モードオンオフ，編集モード時は，必ずウィンドウ固定モードになる． 
+        /// 編集モードオンオフ，編集モード時は，必ずウィンドウ固定モードになる．
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -364,6 +364,11 @@ namespace DoclikeMac
         {
             if (AppData.isMovingIcon)
             {
+                if (e.GetPosition(iconList).Y < 0)
+                {
+                    AppData.isDeleted = true;
+                    return;
+                }
                 if (AppData.isChangedLeft)
                 {
                     //左と入れ替え
@@ -391,6 +396,18 @@ namespace DoclikeMac
                     manager.Swap(idx, idx + 1);
                 }
                 AppData.isDeleted = false;
+            }
+        }
+
+        private void IconList_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (AppData.isDeleted)
+            {
+                iconList.Children.Remove(AppData.movingImage);
+                var idx = manager.GetIndexByImage(AppData.movingImage);
+                manager.RemoveAppData(idx);
+                iconList.ColumnDefinitions.RemoveAt(idx);
+                AppData.movingImage = null;
             }
         }
     }
