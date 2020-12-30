@@ -189,6 +189,11 @@ namespace DoclikeMac
             GC.Collect();
         }
 
+        /// <summary>
+        /// ウィンドウを引っ張ってくる
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_MouseEnter(object sender, MouseEventArgs e)
         {
             if (animationFlag)
@@ -199,6 +204,11 @@ namespace DoclikeMac
             }
         }
 
+        /// <summary>
+        /// ウィンドウを画面外にしまう
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_MouseLeave(object sender, MouseEventArgs e)
         {
             if (animationFlag)
@@ -209,29 +219,47 @@ namespace DoclikeMac
             }
         }
 
+        /// <summary>
+        /// ウィンドウ固定・非固定モード切替．アニメーションモードと対応．ウィンドウ非固定モードのときはアプリ実行モードにする．
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LockButton_Click(object sender, RoutedEventArgs e)
         {
+            //アニメーションモードのとき
             if (animationFlag)
             {
+                //アニメーションをオフにし，ウィンドウを固定
                 isUnlock = animationFlag = false;
                 lockButton.Content = txtAtLock;
                 Top = minY;
             }
             else
             {
+                //アニメーションをオンにする
                 isUnlock = animationFlag = true;
                 lockButton.Content = txtAtUnlock;
                 isEdit = false;
                 editButton.Content = txtAtExe;
             }
         }
-
+        
+        /// <summary>
+        /// フォルダーランチャーを開く
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OpenButton_Click(object sender, RoutedEventArgs e)
         {
             if (FolderDock.isClosed) fdWindow = new FolderDock();
             fdWindow.Show();
         }
 
+        /// <summary>
+        /// ドラッグ時のカーソル横のアイコンを変更
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_DragOver(object sender, DragEventArgs e)
         {
             if (!isEdit) return;
@@ -247,6 +275,11 @@ namespace DoclikeMac
             e.Handled = true;
         }
 
+        /// <summary>
+        /// アプリを追加したときの処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_Drop(object sender, DragEventArgs e)
         {
             if (!isEdit) return;
@@ -262,6 +295,11 @@ namespace DoclikeMac
             }
         }
 
+        /// <summary>
+        /// アプリを追加しようとするときの処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_DragEnter(object sender, DragEventArgs e)
         {
             if (!isEdit) return;
@@ -269,6 +307,11 @@ namespace DoclikeMac
             iconList.Children.Add(new Image());
         }
 
+        /// <summary>
+        /// アプリを追加しなかったときの処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_DragLeave(object sender, DragEventArgs e)
         {
             if (!isEdit) return;
@@ -276,15 +319,23 @@ namespace DoclikeMac
             iconList.ColumnDefinitions.RemoveAt(iconList.ColumnDefinitions.Count - 1);
         }
 
+        /// <summary>
+        /// 編集モードオンオフ，編集モード時は，必ずウィンドウ固定モードになる． 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
+            //編集モードのとき
             if (isEdit)
             {
+                //アプリ実行モードへ
                 isEdit = false;
                 editButton.Content = txtAtExe;
             }
             else
             {
+                //編集モードへ
                 isEdit = true;
                 editButton.Content = txtAtEdit;
                 isUnlock = animationFlag = false;
