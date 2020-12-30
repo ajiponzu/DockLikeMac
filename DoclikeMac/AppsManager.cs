@@ -58,6 +58,8 @@ namespace DoclikeMac
                 {
                     HandleShortcut();
                 }
+                iconImage = new Image();
+                if (appPath == "") return;
                 ReadIcon();
                 RegisterIconEvent();
             }
@@ -67,7 +69,7 @@ namespace DoclikeMac
             /// </summary>
             private void HandleShortcut()
             {
-                var shell = new IWshRuntimeLibrary.WshShell();
+                var shell = new WshShell();
                 var sc = (IWshShortcut)shell.CreateShortcut(appPath);
                 appPath = sc.TargetPath;
             }
@@ -77,7 +79,6 @@ namespace DoclikeMac
             /// </summary>
             public void ReadIcon()
             {
-                iconImage = new Image();
                 //winFormのアイコンをwpfのイメージに変換して保存
                 var icon = Icon.ExtractAssociatedIcon(appPath);
                 iconImage.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(
@@ -112,24 +113,26 @@ namespace DoclikeMac
                     AnimationIcon();
                 };
 
+                //アイテムをアイコン上にドラッグすると，アイテムのパスをコピーしてとっておく
                 iconImage.DragOver += (sender, e) =>
                 {
-                    if (e.Data.GetDataPresent(System.Windows.DataFormats.FileDrop, true))
+                    if (e.Data.GetDataPresent(DataFormats.FileDrop, true))
                     {
-                        e.Effects = System.Windows.DragDropEffects.Copy;
+                        e.Effects = DragDropEffects.Copy;
                     }
                     else
                     {
-                        e.Effects = System.Windows.DragDropEffects.None;
+                        e.Effects = DragDropEffects.None;
                     }
                     e.Handled = true;
                 };
 
+                //アイテムをドロップすると，ドラッグ時に保存したパスを引数としてアプリ実行
                 iconImage.AllowDrop = true;
                 iconImage.Drop += (sender, e) =>
                 {
-                    if (e.Data.GetData(System.Windows.DataFormats.FileDrop) is not string[] dropFiles) return;
-                    Process.Start(appPath, dropFiles[0]);                    
+                    if (e.Data.GetData(DataFormats.FileDrop) is not string[] dropFiles) return;
+                    Process.Start(appPath, dropFiles[0]);
                 };
             }
 
@@ -213,6 +216,11 @@ namespace DoclikeMac
         {
             apps.Insert(idx, new AppData(path));
         }
+        
+        public void InsertAppData(string path)
+        {
+            apps.Add(new AppData(path));
+        }
 
         /// <summary>
         /// appsの指定場所のAppDataを削除
@@ -221,6 +229,11 @@ namespace DoclikeMac
         public void RemoveAppData(ref int idx)
         {
             apps.RemoveAt(idx);
+        }
+
+        public void RemoveAppData()
+        {
+            apps.RemoveAt(apps.Count - 1);
         }
 
         /// <summary>
@@ -233,6 +246,13 @@ namespace DoclikeMac
             apps[idx].iconImage.SetValue(Grid.RowProperty, 0);
             apps[idx].iconImage.SetValue(Grid.ColumnProperty, idx);
             return apps[idx].iconImage;
+        }
+
+        public Image GetAppIcon()
+        {
+            apps[^1].iconImage.SetValue(Grid.RowProperty, 0);
+            apps[^1].iconImage.SetValue(Grid.ColumnProperty, apps.Count - 1);
+            return apps[^1].iconImage;
         }
 
         /// <summary>

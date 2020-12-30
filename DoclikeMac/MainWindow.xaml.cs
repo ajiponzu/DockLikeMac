@@ -47,8 +47,20 @@ namespace DoclikeMac
 
         //lockButtonテキスト1
         private const string txtAtUnlock = "lock";
+
         //lockButtonテキスト2
         private const string txtAtLock = "unlock";
+
+        //openボタンで表示するウィンドウ
+        private FolderDock fdWindow;
+
+        //デバッグ用
+        public static int modelLen;
+
+        public static int viewLen;
+        public static int viewCDLen;
+
+        public static int counter = 0;
 
         /// <summary>
         /// コンストラクタ
@@ -94,6 +106,9 @@ namespace DoclikeMac
                 iconList.ColumnDefinitions.Add(new ColumnDefinition());
                 iconList.Children.Add(manager.GetAppIcon(ref idx));
             }
+            modelLen = manager.CountOfApps();
+            viewCDLen = iconList.ColumnDefinitions.Count;
+            viewLen = iconList.Children.Count;
         }
 
         /// <summary>
@@ -211,7 +226,41 @@ namespace DoclikeMac
 
         private void OpenButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            fdWindow = new FolderDock();
+            fdWindow.Show();
+        }
+
+        private void IconList_DragOver(object sender, DragEventArgs e)
+        {
+            //iconList.ColumnDefinitions.Add(new ColumnDefinition());
+            //iconList.Children.Add(new Image());
+            if (e.Data.GetDataPresent(DataFormats.FileDrop, true))
+            {
+                e.Effects = DragDropEffects.Copy;
+            }
+            else
+            {
+                e.Effects = DragDropEffects.None;
+            }
+
+            e.Handled = true;
+        }
+
+        private void IconList_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetData(DataFormats.FileDrop) is not string[] dropFiles) return;
+            if (dropFiles[0].EndsWith(".exe") || dropFiles[0].EndsWith(".lnk"))
+            {
+                counter++;
+                manager.InsertAppData(dropFiles[0]);
+                iconList.ColumnDefinitions.Add(new ColumnDefinition());
+                iconList.Children.Add(manager.GetAppIcon());
+                modelLen = manager.CountOfApps();
+                viewCDLen = iconList.ColumnDefinitions.Count;
+                viewLen = iconList.Children.Count;
+            }
+            //iconList.Children.RemoveAt(iconList.Children.Count - 1);
+            //iconList.ColumnDefinitions.RemoveAt(iconList.ColumnDefinitions.Count - 1);
         }
     }
 }
