@@ -96,6 +96,7 @@ namespace DoclikeMac
                 //クリック時にアプリを起動する
                 iconImage.MouseLeftButtonDown += (sender, e) =>
                 {
+                    if (MainWindow.isEdit) return;
                     Process.Start(appPath);
                 };
 
@@ -116,6 +117,7 @@ namespace DoclikeMac
                 //アイテムをアイコン上にドラッグすると，アイテムのパスをコピーしてとっておく
                 iconImage.DragOver += (sender, e) =>
                 {
+                    if (MainWindow.isEdit) return;
                     if (e.Data.GetDataPresent(DataFormats.FileDrop, true))
                     {
                         e.Effects = DragDropEffects.Copy;
@@ -131,6 +133,7 @@ namespace DoclikeMac
                 iconImage.AllowDrop = true;
                 iconImage.Drop += (sender, e) =>
                 {
+                    if (MainWindow.isEdit) return;
                     if (e.Data.GetData(DataFormats.FileDrop) is not string[] dropFiles) return;
                     Process.Start(appPath, dropFiles[0]);
                 };
@@ -231,6 +234,9 @@ namespace DoclikeMac
             apps.RemoveAt(idx);
         }
 
+        /// <summary>
+        /// appsの末尾要素を削除
+        /// </summary>
         public void RemoveAppData()
         {
             apps.RemoveAt(apps.Count - 1);

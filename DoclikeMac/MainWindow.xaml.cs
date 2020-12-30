@@ -54,6 +54,11 @@ namespace DoclikeMac
         //openボタンで表示するウィンドウ
         private FolderDock fdWindow;
 
+        public static bool isEdit = false;
+
+        private const string txtAtExe = "sort";
+        private const string txtAtEdit = "exe";
+
         //デバッグ用
         public static int modelLen;
 
@@ -68,6 +73,7 @@ namespace DoclikeMac
         public MainWindow()
         {
             manager = new AppsManager();
+            fdWindow = new FolderDock();
             InitializeComponent();
             InitWindow();
             InitIconList();
@@ -226,14 +232,13 @@ namespace DoclikeMac
 
         private void OpenButton_Click(object sender, RoutedEventArgs e)
         {
-            fdWindow = new FolderDock();
+            if (FolderDock.isClosed) fdWindow = new FolderDock();
             fdWindow.Show();
         }
 
         private void IconList_DragOver(object sender, DragEventArgs e)
         {
-            //iconList.ColumnDefinitions.Add(new ColumnDefinition());
-            //iconList.Children.Add(new Image());
+            if (!isEdit) return;
             if (e.Data.GetDataPresent(DataFormats.FileDrop, true))
             {
                 e.Effects = DragDropEffects.Copy;
@@ -248,6 +253,9 @@ namespace DoclikeMac
 
         private void IconList_Drop(object sender, DragEventArgs e)
         {
+            if (!isEdit) return;
+            iconList.Children.RemoveAt(iconList.Children.Count - 1);
+            iconList.ColumnDefinitions.RemoveAt(iconList.ColumnDefinitions.Count - 1);
             if (e.Data.GetData(DataFormats.FileDrop) is not string[] dropFiles) return;
             if (dropFiles[0].EndsWith(".exe") || dropFiles[0].EndsWith(".lnk"))
             {
@@ -259,8 +267,34 @@ namespace DoclikeMac
                 viewCDLen = iconList.ColumnDefinitions.Count;
                 viewLen = iconList.Children.Count;
             }
-            //iconList.Children.RemoveAt(iconList.Children.Count - 1);
-            //iconList.ColumnDefinitions.RemoveAt(iconList.ColumnDefinitions.Count - 1);
+        }
+
+        private void IconList_DragEnter(object sender, DragEventArgs e)
+        {
+            if (!isEdit) return;
+            iconList.ColumnDefinitions.Add(new ColumnDefinition());
+            iconList.Children.Add(new Image());
+        }
+
+        private void IconList_DragLeave(object sender, DragEventArgs e)
+        {
+            if (!isEdit) return;
+            iconList.Children.RemoveAt(iconList.Children.Count - 1);
+            iconList.ColumnDefinitions.RemoveAt(iconList.ColumnDefinitions.Count - 1);
+        }
+
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (isEdit)
+            {
+                isEdit = false;
+                editButton.Content = txtAtExe;
+            }
+            else
+            {
+                isEdit = true;
+                editButton.Content = txtAtEdit;
+            }
         }
     }
 }

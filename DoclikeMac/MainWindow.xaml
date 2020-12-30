@@ -22,8 +22,9 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="44" />
         </Grid.ColumnDefinitions>
-        <Grid x:Name="iconList" Margin="12,12,9,8" Background="#BFFFFFFF" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" AllowDrop="True" DragOver="IconList_DragOver" Drop="IconList_Drop" />
-        <Button x:Name="openButton" Content="open" Grid.Column="1" Margin="0,64,0,0" BorderBrush="#FFD6FF1D" Background="#FF9D9AE3" FontSize="12" FontFamily="Elephant" Click="OpenButton_Click" />
-        <Button x:Name="lockButton" Content="unlock" Grid.Column="1" Margin="0,40,0,24" BorderBrush="#FFD6FF1D" Background="#FF9D9AE3" FontSize="12" FontFamily="Elephant" Click="LockButton_Click" />
+        <Grid x:Name="iconList" Margin="12,12,9,8" Background="#BFFFFFFF" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" AllowDrop="True" DragOver="IconList_DragOver" Drop="IconList_Drop" DragEnter="IconList_DragEnter" DragLeave="IconList_DragLeave" />
+        <Button x:Name="openButton" Content="open" Grid.Column="1" Margin="0,63,0,4" BorderBrush="#FFD6FF1D" Background="#FF9D9AE3" FontSize="12" FontFamily="Elephant" Click="OpenButton_Click" />
+        <Button x:Name="lockButton" Content="unlock" Grid.Column="1" Margin="0,42,0,25" BorderBrush="#FFD6FF1D" Background="#FF9D9AE3" FontSize="12" FontFamily="Elephant" Click="LockButton_Click" />
+        <Button x:Name="editButton" Content="edit" Grid.Column="1" Margin="0,21,0,46" BorderBrush="#FFD6FF1D" Background="#FF9D9AE3" FontSize="12" FontFamily="Elephant" Click="EditButton_Click" />
     </Grid>
 </Window>
