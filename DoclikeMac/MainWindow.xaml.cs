@@ -256,6 +256,8 @@ namespace DoclikeMac
         private void OpenButton_Click(object sender, RoutedEventArgs e)
         {
             if (FolderDock.isClosed) fdWindow = new FolderDock();
+            fdWindow.Top = screenHeight / 2;
+            fdWindow.Left = Left;
             fdWindow.Show();
         }
 
@@ -295,6 +297,7 @@ namespace DoclikeMac
                 if (dropFiles[0].EndsWith(".exe") || dropFiles[0].EndsWith(".lnk"))
                 {
                     Width += startWidth;
+                    Left = (screenWidth - Width) / 2;
                     manager.InsertAppData(dropFiles[0]);
                     iconList.ColumnDefinitions.Add(new ColumnDefinition());
                     iconList.Children.Add(manager.GetAppIcon());
@@ -399,15 +402,24 @@ namespace DoclikeMac
             }
         }
 
+        /// <summary>
+        /// アイコンの削除
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void IconList_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (AppData.isDeleted)
             {
-                iconList.Children.Remove(AppData.movingImage);
                 var idx = manager.GetIndexByImage(AppData.movingImage);
+                iconList.Children.Remove(AppData.movingImage);
                 manager.RemoveAppData(idx);
+                manager.FixGridPosition(idx);
                 iconList.ColumnDefinitions.RemoveAt(idx);
                 AppData.movingImage = null;
+                Width -= startWidth;
+                Left = (screenWidth - Width) / 2;
+                AppData.isDeleted = false;
             }
         }
     }

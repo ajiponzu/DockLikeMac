@@ -14,6 +14,14 @@ namespace DoclikeMac
         //アプリデータリスト
         private readonly List<AppData> apps;
 
+        public AppData this[int idx]
+        {
+            get
+            {
+                return apps[idx];
+            }
+        }
+
         public AppsManager()
         {
             apps = new List<AppData>();
@@ -125,6 +133,18 @@ namespace DoclikeMac
                 }
             }
             return idx;
+        }
+
+        /// <summary>
+        /// Gridにおける位置を再設定
+        /// </summary>
+        /// <param name="idx"></param>
+        public void FixGridPosition(int idx)
+        {
+            for (; idx < apps.Count; idx++)
+            {
+                apps[idx].iconImage.SetValue(Grid.ColumnProperty, idx);
+            }
         }
     }
 }
