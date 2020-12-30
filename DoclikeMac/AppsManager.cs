@@ -212,28 +212,9 @@ namespace DoclikeMac
             return pathList;
         }
 
-        /// <summary>
-        /// appsの指定場所にAppDataを登録
-        /// </summary>
-        /// <param name="idx">appsの場所を指定</param>
-        /// <param name="path">AppData.appPathへ代入</param>
-        public void InsertAppData(ref int idx, string path)
-        {
-            apps.Insert(idx, new AppData(path));
-        }
-        
         public void InsertAppData(string path)
         {
             apps.Add(new AppData(path));
-        }
-
-        /// <summary>
-        /// appsの指定場所のAppDataを削除
-        /// </summary>
-        /// <param name="idx"></param>
-        public void RemoveAppData(ref int idx)
-        {
-            apps.RemoveAt(idx);
         }
 
         /// <summary>
@@ -256,6 +237,10 @@ namespace DoclikeMac
             return apps[idx].iconImage;
         }
 
+        /// <summary>
+        /// appsの末尾のAppDataからアイコンを取得
+        /// </summary>
+        /// <returns>appsの末尾のアイコン: Image</returns>
         public Image GetAppIcon()
         {
             apps[^1].iconImage.SetValue(Grid.RowProperty, 0);

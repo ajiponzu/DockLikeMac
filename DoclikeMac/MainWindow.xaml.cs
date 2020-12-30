@@ -21,6 +21,9 @@ namespace DoclikeMac
         //画面解像度(縦)
         private double screenHeight;
 
+        //最初のウィンドウ幅
+        private double startWidth;
+
         //調整高さ幅
         private const int pad = 1;
 
@@ -56,16 +59,8 @@ namespace DoclikeMac
 
         public static bool isEdit = false;
 
-        private const string txtAtExe = "sort";
+        private const string txtAtExe = "edit";
         private const string txtAtEdit = "exe";
-
-        //デバッグ用
-        public static int modelLen;
-
-        public static int viewLen;
-        public static int viewCDLen;
-
-        public static int counter = 0;
 
         /// <summary>
         /// コンストラクタ
@@ -84,6 +79,7 @@ namespace DoclikeMac
         /// </summary>
         private void InitWindow()
         {
+            startWidth = Width;
             /* ウィンドウの幅はアイコンの数に比例する */
             var count = manager.CountOfApps();
             Width *= (count <= 0) ? 1 : count;
@@ -112,16 +108,13 @@ namespace DoclikeMac
                 iconList.ColumnDefinitions.Add(new ColumnDefinition());
                 iconList.Children.Add(manager.GetAppIcon(ref idx));
             }
-            modelLen = manager.CountOfApps();
-            viewCDLen = iconList.ColumnDefinitions.Count;
-            viewLen = iconList.Children.Count;
         }
 
         /// <summary>
-        /// updateスレッド生成
+        /// ウィンドウアニメーション生成(上下に動く)
         /// </summary>
         /// <returns>t: DispatcherTimer</returns>
-        private DispatcherTimer CreateTimer()
+        private DispatcherTimer CreateWindowMoveTimer()
         {
             var t = new DispatcherTimer(DispatcherPriority.Render)
             {
@@ -191,7 +184,7 @@ namespace DoclikeMac
         private void AnimationWindow()
         {
             if (timer != null) timer.Stop();
-            timer = CreateTimer();
+            timer = CreateWindowMoveTimer();
             timer.Start();
             GC.Collect();
         }
@@ -222,11 +215,14 @@ namespace DoclikeMac
             {
                 isUnlock = animationFlag = false;
                 lockButton.Content = txtAtLock;
+                Top = minY;
             }
             else
             {
                 isUnlock = animationFlag = true;
                 lockButton.Content = txtAtUnlock;
+                isEdit = false;
+                editButton.Content = txtAtExe;
             }
         }
 
@@ -236,7 +232,7 @@ namespace DoclikeMac
             fdWindow.Show();
         }
 
-        private void IconList_DragOver(object sender, DragEventArgs e)
+        private void Window_DragOver(object sender, DragEventArgs e)
         {
             if (!isEdit) return;
             if (e.Data.GetDataPresent(DataFormats.FileDrop, true))
@@ -251,7 +247,7 @@ namespace DoclikeMac
             e.Handled = true;
         }
 
-        private void IconList_Drop(object sender, DragEventArgs e)
+        private void Window_Drop(object sender, DragEventArgs e)
         {
             if (!isEdit) return;
             iconList.Children.RemoveAt(iconList.Children.Count - 1);
@@ -259,24 +255,21 @@ namespace DoclikeMac
             if (e.Data.GetData(DataFormats.FileDrop) is not string[] dropFiles) return;
             if (dropFiles[0].EndsWith(".exe") || dropFiles[0].EndsWith(".lnk"))
             {
-                counter++;
+                Width += startWidth;
                 manager.InsertAppData(dropFiles[0]);
                 iconList.ColumnDefinitions.Add(new ColumnDefinition());
                 iconList.Children.Add(manager.GetAppIcon());
-                modelLen = manager.CountOfApps();
-                viewCDLen = iconList.ColumnDefinitions.Count;
-                viewLen = iconList.Children.Count;
             }
         }
 
-        private void IconList_DragEnter(object sender, DragEventArgs e)
+        private void Window_DragEnter(object sender, DragEventArgs e)
         {
             if (!isEdit) return;
             iconList.ColumnDefinitions.Add(new ColumnDefinition());
             iconList.Children.Add(new Image());
         }
 
-        private void IconList_DragLeave(object sender, DragEventArgs e)
+        private void Window_DragLeave(object sender, DragEventArgs e)
         {
             if (!isEdit) return;
             iconList.Children.RemoveAt(iconList.Children.Count - 1);
@@ -294,6 +287,9 @@ namespace DoclikeMac
             {
                 isEdit = true;
                 editButton.Content = txtAtEdit;
+                isUnlock = animationFlag = false;
+                lockButton.Content = txtAtLock;
+                Top = minY;
             }
         }
     }
