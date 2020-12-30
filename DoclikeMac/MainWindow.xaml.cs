@@ -24,6 +24,9 @@ namespace DoclikeMac
         //最初のウィンドウ幅
         private double startWidth;
 
+        //ウィンドウとiconList(grid)の横の溝
+        private double iconListMarginWid;
+
         //調整高さ幅
         private const int pad = 1;
 
@@ -106,8 +109,9 @@ namespace DoclikeMac
             for (var idx = 0; idx < manager.CountOfApps(); idx++)
             {
                 iconList.ColumnDefinitions.Add(new ColumnDefinition());
-                iconList.Children.Add(manager.GetAppIcon(ref idx));
+                iconList.Children.Add(manager.GetAppIcon(idx));
             }
+            iconListMarginWid = iconList.Margin.Left + iconList.Margin.Right;
         }
 
         /// <summary>
@@ -348,6 +352,41 @@ namespace DoclikeMac
                 isUnlock = animationFlag = false;
                 lockButton.Content = txtAtLock;
                 Top = minY;
+            }
+        }
+
+        /// <summary>
+        /// アイコン移動を検知し，データのインデックスを入れ替える．
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void IconList_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (AppData.isMovingIcon)
+            {
+                if (AppData.isChangedLeft)
+                {
+                    AppData.isChangedLeft = false;
+                    var idx = manager.GetIndexByImage(AppData.movingImage);
+                    if (idx - 1 < 0)
+                    {
+                        AppData.isDeleted = true;
+                        return;
+                    }
+                    manager.Swap(idx, idx - 1);
+                }
+                if (AppData.isChangedRight)
+                {
+                    AppData.isChangedRight = false;
+                    var idx = manager.GetIndexByImage(AppData.movingImage);
+                    if (idx + 1 >= manager.CountOfApps())
+                    {
+                        AppData.isDeleted = true;
+                        return;
+                    }
+                    manager.Swap(idx, idx + 1);
+                }
+                AppData.isDeleted = false;
             }
         }
     }
