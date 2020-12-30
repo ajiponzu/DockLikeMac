@@ -366,10 +366,12 @@ namespace DoclikeMac
             {
                 if (AppData.isChangedLeft)
                 {
+                    //左と入れ替え
                     AppData.isChangedLeft = false;
                     var idx = manager.GetIndexByImage(AppData.movingImage);
                     if (idx - 1 < 0)
                     {
+                        //iconListからはみ出たら削除
                         AppData.isDeleted = true;
                         return;
                     }
@@ -377,10 +379,12 @@ namespace DoclikeMac
                 }
                 if (AppData.isChangedRight)
                 {
+                    //右と入れ替え
                     AppData.isChangedRight = false;
                     var idx = manager.GetIndexByImage(AppData.movingImage);
                     if (idx + 1 >= manager.CountOfApps())
                     {
+                        //iconListからはみ出たら削除
                         AppData.isDeleted = true;
                         return;
                     }

@@ -180,11 +180,10 @@ namespace DoclikeMac
                     iconImage.Opacity = 1;
                     iconImage.ReleaseMouseCapture();
                     isMovingIcon = false;
-                    Vector v = curPos - staticPos;
-                    //アイコン位置を元に戻す
-                    MoveIcon(v);
-                    iconImage.RenderTransform = tempScaleMat;
                     movingImage = null;
+                    //アイコン位置を元に戻す
+                    MoveIcon(curPos - staticPos);
+                    iconImage.RenderTransform = tempScaleMat;
                 }
             };
         }
@@ -207,12 +206,14 @@ namespace DoclikeMac
                 //規定サイズを超えると終了
                 if (tempScaleMat.ScaleX > expand.ScaleX && delta > 0)
                 {
+                    //拡大
                     tempScaleMat.ScaleX = expand.ScaleX;
                     tempScaleMat.ScaleY = expand.ScaleY;
                     t.Stop();
                 }
                 else if (tempScaleMat.ScaleX < narrow.ScaleX && delta < 0)
                 {
+                    //縮小
                     tempScaleMat.ScaleX = narrow.ScaleX;
                     tempScaleMat.ScaleY = narrow.ScaleY;
                     t.Stop();
@@ -252,12 +253,14 @@ namespace DoclikeMac
             var diff = curPos - staticPos;
             if (diff.X > boundaryWid)
             {
+                //右のアイコンと入れ替え
                 isChangedRight = true;
                 MoveIcon(curPos - staticPos);
                 staticPos = curPos;
             }
             if (diff.X < -boundaryWid)
             {
+                //左のアイコンと入れ替え
                 isChangedLeft = true;
                 MoveIcon(curPos - staticPos);
                 staticPos = curPos;
