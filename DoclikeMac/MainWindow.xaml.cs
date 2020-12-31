@@ -412,17 +412,21 @@ namespace DoclikeMac
         /// <param name="e"></param>
         private void IconList_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (AppData.isDeleted)
+            if (isEdit)
             {
-                var idx = manager.GetIndexByImage(AppData.movingImage);
-                iconList.Children.Remove(AppData.movingImage);
-                manager.RemoveAppData(idx);
-                manager.FixGridPosition(idx);
-                iconList.ColumnDefinitions.RemoveAt(idx);
-                AppData.movingImage = null;
-                Width -= startWidth;
-                Left = (screenWidth - Width) / 2;
-                AppData.isDeleted = false;
+                if (AppData.isDeleted)
+                {
+                    var idx = manager.GetIndexByImage(AppData.movingImage);
+                    iconList.Children.Remove(AppData.movingImage);
+                    manager.RemoveAppData(idx);
+                    manager.FixGridPosition(idx);
+                    iconList.ColumnDefinitions.RemoveAt(idx);
+                    AppData.movingImage = null;
+                    Width -= startWidth;
+                    Left = (screenWidth - Width) / 2;
+                    AppData.isDeleted = false;
+                }
+                manager.WriteJson();
             }
         }
 
