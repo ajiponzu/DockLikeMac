@@ -16,7 +16,7 @@
         DpiChanged="Window_DpiChanged"
         MouseEnter="Window_MouseEnter"
         MouseLeave="Window_MouseLeave" ShowInTaskbar="False" Topmost="True" DragEnter="Window_DragEnter" DragLeave="Window_DragLeave" DragOver="Window_DragOver" Drop="Window_Drop" Closing="Window_Closing">
-    
+
     <Grid x:Name="grid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -25,7 +25,7 @@
             <tb:TaskbarIcon IconSource="/Resources/TaskIcon.ico" ToolTipText="DockLikeMac">
         <tb:TaskbarIcon.ContextMenu>
             <ContextMenu>
-                <MenuItem x:Name="menu1" Header="表示/隠す" Click="Menu1_Click"/>
+                <MenuItem x:Name="menu1" Header="表示/隠す" Click="Menu1_Click" />
                 <MenuItem x:Name="menu2" Header="終了" Click="Menu2_Click" />
              </ContextMenu>
         </tb:TaskbarIcon.ContextMenu>

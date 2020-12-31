@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Windows.Controls;
 using Image = System.Windows.Controls.Image;
 
 namespace DoclikeMac
 {
     //アプリデータリストの管理
-    class AppsManager
+    internal class AppsManager
     {
-        private const string folder = @"./debugfolder/"; //デバッグ用
+        private static readonly string settingFile = @"setting.json";
 
         //アプリデータリスト
         private readonly List<AppData> apps;
@@ -25,23 +24,13 @@ namespace DoclikeMac
         public AppsManager()
         {
             apps = new List<AppData>();
-            var _pathList = GetPathList();
-            var patterns = new string[] { ".exe", ".lnk" };
-            var pathList = _pathList.Where(_path => patterns.Any(_pattern => _path.ToLower().EndsWith(_pattern)));
+            //設定ファイル読み込み，要素の追加
+            if (!File.Exists(settingFile)) return;
+            var pathList = File.ReadAllLines(settingFile);
             foreach (var path in pathList)
             {
                 apps.Add(new AppData(path));
             }
-        }
-
-        /// <summary>
-        /// 外部アプリのパスを取得
-        /// </summary>
-        /// <returns>パスを要素とするstring配列</returns>
-        private static string[] GetPathList()
-        {
-            var pathList = Directory.GetFiles(folder, "*.*");
-            return pathList;
         }
 
         /// <summary>
@@ -153,6 +142,19 @@ namespace DoclikeMac
             {
                 apps[idx].iconImage.SetValue(Grid.ColumnProperty, idx);
             }
+        }
+
+        /// <summary>
+        /// 設定ファイル書き込み
+        /// </summary>
+        public void WriteJson()
+        {
+            var pathList = new string[apps.Count];
+            for (var idx = 0; idx < apps.Count; idx++)
+            {
+                pathList[idx] = apps[idx].AppPath;
+            }
+            File.WriteAllLines(settingFile, pathList);
         }
     }
 }

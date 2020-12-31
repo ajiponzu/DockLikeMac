@@ -440,6 +440,7 @@ namespace DoclikeMac
 
         private void Menu2_Click(object sender, RoutedEventArgs e)
         {
+            manager.WriteJson();
             Application.Current.Shutdown();
         }
 
@@ -449,4 +450,3 @@ namespace DoclikeMac
         }
     }
 }
-

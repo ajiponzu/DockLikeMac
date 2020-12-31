@@ -53,16 +53,33 @@ namespace DoclikeMac
         //アイコンの1フレームあたりの伸縮
         private float delta;
 
+        //定位置
         private Point staticPos;
+
+        //現在位置
         private Point curPos;
 
+        //隣接アイコンとの溝
         private const double pad = 10;
 
+        //移動中true
         public static bool isMovingIcon = false;
+
+        //左のアイコンと入れ替えたときtrue
         public static bool isChangedLeft = false;
+
+        //右のアイコンと入れ替えたときtrue
         public static bool isChangedRight = false;
+
+        //アイコンを削除するときtrue
         public static bool isDeleted = false;
+
+        //移動中アイコン画像
         public static Image movingImage = null;
+
+        public AppData()
+        {
+        }
 
         public AppData(string path)
         {
