@@ -102,7 +102,7 @@ namespace DoclikeMac
             //クリック時
             iconImage.MouseLeftButtonDown += (sender, e) =>
             {
-                if (AppDock.isEdit)
+                if (MainWindow.isEdit)
                 {
                     //アイコンを動かす準備
                     iconImage.Opacity = 0.5;
@@ -122,7 +122,7 @@ namespace DoclikeMac
             //カーソルに触れるとアイコン拡大
             iconImage.MouseEnter += (sender, e) =>
             {
-                if (AppDock.isEdit) return;
+                if (MainWindow.isEdit) return;
                 delta = deltaExpand;
                 AnimationIcon();
             };
@@ -130,7 +130,7 @@ namespace DoclikeMac
             //カーソルが離れるとアイコン縮小
             iconImage.MouseLeave += (sender, e) =>
             {
-                if (AppDock.isEdit) return;
+                if (MainWindow.isEdit) return;
                 delta = deltaNarrow;
                 AnimationIcon();
             };
@@ -138,7 +138,7 @@ namespace DoclikeMac
             //アイテムをアイコン上にドラッグすると，アイテムのパスをコピーしてとっておく
             iconImage.DragOver += (sender, e) =>
             {
-                if (AppDock.isEdit) return;
+                if (MainWindow.isEdit) return;
                 if (e.Data.GetDataPresent(DataFormats.FileDrop, true))
                 {
                     e.Effects = DragDropEffects.Copy;
@@ -154,7 +154,7 @@ namespace DoclikeMac
             iconImage.AllowDrop = true;
             iconImage.Drop += (sender, e) =>
             {
-                if (AppDock.isEdit) return;
+                if (MainWindow.isEdit) return;
                 if (e.Data.GetData(DataFormats.FileDrop) is not string[] dropFiles) return;
                 Process.Start(appPath, dropFiles[0]);
             };
@@ -162,7 +162,7 @@ namespace DoclikeMac
             //アイコンを動かす
             iconImage.MouseMove += (sender, e) =>
             {
-                if (AppDock.isEdit && iconImage.IsMouseCaptured)
+                if (MainWindow.isEdit && iconImage.IsMouseCaptured)
                 {
                     var cursor = e.GetPosition((IInputElement)iconImage.Parent);
                     MoveIcon(curPos - cursor);
@@ -175,7 +175,7 @@ namespace DoclikeMac
             //アイコンの位置確定
             iconImage.MouseLeftButtonUp += (sender, e) =>
             {
-                if (AppDock.isEdit)
+                if (MainWindow.isEdit)
                 {
                     iconImage.Opacity = 1;
                     iconImage.ReleaseMouseCapture();
