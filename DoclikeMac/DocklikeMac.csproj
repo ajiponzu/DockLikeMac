@@ -6,7 +6,7 @@
     <UseWPF>true</UseWPF>
     <UserSecretsId>7cc3c3be-b6d3-4625-8a30-b1c38353879e</UserSecretsId>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <StartupObject></StartupObject>
+    <StartupObject>DoclikeMac.App</StartupObject>
     <AssemblyName>DocklikeMac</AssemblyName>
     <RootNamespace>DocklikeMac</RootNamespace>
   </PropertyGroup>
