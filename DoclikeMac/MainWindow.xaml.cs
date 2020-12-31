@@ -303,6 +303,7 @@ namespace DoclikeMac
                     {
                         iconList.ColumnDefinitions.Add(new ColumnDefinition());
                         iconList.Children.Add(manager.GetAppIcon());
+                        manager.WriteJson();
                     }
                 }
             }
