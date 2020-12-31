@@ -45,12 +45,20 @@ namespace DoclikeMac
         }
 
         /// <summary>
-        /// appsの末尾に要素を追加
+        /// appsの末尾に要素を追加, 限定的な同名ファイル追加防止(結構ザル)
         /// </summary>
         /// <param name="path"></param>
-        public void InsertAppData(string path)
+        public bool InsertAppData(string path)
         {
+            foreach (var app in apps)
+            {
+                if (path == app.AppPath)
+                {
+                    return false;
+                }
+            }
             apps.Add(new AppData(path));
+            return true;
         }
 
         /// <summary>

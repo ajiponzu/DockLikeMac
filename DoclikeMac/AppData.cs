@@ -18,6 +18,14 @@ namespace DoclikeMac
         //実行ファイルのパス
         private string appPath;
 
+        public string AppPath
+        {
+            get
+            {
+                return appPath;
+            }
+        }
+
         //実行ファイルのアイコン
         public Image iconImage;
 

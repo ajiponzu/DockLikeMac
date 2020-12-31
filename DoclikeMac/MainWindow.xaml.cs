@@ -298,9 +298,12 @@ namespace DoclikeMac
                 {
                     Width += startWidth;
                     Left = (screenWidth - Width) / 2;
-                    manager.InsertAppData(dropFiles[0]);
-                    iconList.ColumnDefinitions.Add(new ColumnDefinition());
-                    iconList.Children.Add(manager.GetAppIcon());
+                    //同じパスのファイルがない場合のみ追加する
+                    if (manager.InsertAppData(dropFiles[0]))
+                    {
+                        iconList.ColumnDefinitions.Add(new ColumnDefinition());
+                        iconList.Children.Add(manager.GetAppIcon());
+                    }
                 }
             }
         }
