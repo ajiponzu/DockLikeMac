@@ -9,14 +9,9 @@ namespace DocklikeMac
     internal class AppsManager
     {
         private static readonly string settingFile = @"setting.json";
-        private static readonly string settingFolderFile = @"setting_folder.json";
 
         //アプリデータリスト
         private readonly List<AppData> apps;
-
-        //フォルダリスト
-        private readonly List<FolderData> folders;
-
 
         public AppData this[int idx]
         {
@@ -37,9 +32,6 @@ namespace DocklikeMac
             {
                 apps.Add(new AppData(path));
             }
-
-            //登録フォルダの読み込み
-
         }
 
         /// <summary>

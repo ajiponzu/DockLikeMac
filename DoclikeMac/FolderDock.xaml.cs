@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 
 namespace DocklikeMac
 {
@@ -8,33 +7,75 @@ namespace DocklikeMac
     /// </summary>
     public partial class FolderDock : Window
     {
-        public static bool isClosed = true;
+        private readonly FolderManager manager;
 
         public FolderDock()
         {
+            manager = new FolderManager();
             InitializeComponent();
-            isClosed = false;
+            InitFolderList();
         }
-
-        /* Window（親クラス)のイベントをオーバーライド */
 
         /// <summary>
-        /// 他アプリを表示した時
+        /// フォルダリスト(grid)の初期処理
         /// </summary>
+        private void InitFolderList()
+        {
+            for (var idx = 0; idx < manager.CountOfApps(); idx++)
+            {
+                folderList.Children.Add(manager.GetFolderButton(idx));
+            }
+            /* ウィンドウの高さは登録フォルダの数に比例する */
+            var count = manager.CountOfApps();
+            Height += (count <= 0) ? 0 : title.Height * count;
+        }
+
+        /* xamlイベント */
+
+        /// <summary>
+        /// ドラッグ時のカーソル横のアイコンを変更
+        /// </summary>
+        /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected override void OnDeactivated(EventArgs e)
+        private void Window_DragOver(object sender, DragEventArgs e)
         {
-            base.OnDeactivated(e);
-            Hide();
+            if (e.Data.GetDataPresent(DataFormats.FileDrop, true))
+            {
+                e.Effects = DragDropEffects.Copy;
+            }
+            else
+            {
+                e.Effects = DragDropEffects.None;
+            }
+            e.Handled = true;
         }
 
-        private void Window_Activated(object sender, System.EventArgs e)
+        /// <summary>
+        /// フォルダパスを追加したときの処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_Drop(object sender, DragEventArgs e)
         {
+            if (e.Data.GetData(DataFormats.FileDrop) is not string[] dropFiles) return;
+            //同じパスのフォルダがない場合のみ追加する
+            if (manager.InsertFolderData(dropFiles[0]))
+            {
+                folderList.Children.Add(manager.GetFolderButton());
+                manager.WriteJson();
+            }
         }
 
-        private void Window_Closed(object sender, EventArgs e)
+        /// <summary>
+        /// 右クリックを検知し，要素を削除
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void StackPanel_MouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            isClosed = true;
+            folderList.Children.Remove(FolderData.removeButton);
+            manager.RemoveFolderData();
+            manager.WriteJson();
         }
     }
 }

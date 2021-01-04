@@ -60,9 +60,22 @@ namespace DocklikeMac
         //openボタンで表示するウィンドウ
         private FolderDock fdWindow;
 
+        //フォルダーモード
+        private static bool isFolder = false;
+
+        //openButtonテキスト1
+        private const string txtAtOpen = "close";
+
+        //openButtonテキスト2
+        private const string txtAtClose = "open";
+
+        //編集モード
         public static bool isEdit = false;
 
+        //editButtonテキスト1
         private const string txtAtExe = "edit";
+
+        //editButtonテキスト2
         private const string txtAtEdit = "exe";
 
         /// <summary>
@@ -255,10 +268,23 @@ namespace DocklikeMac
         /// <param name="e"></param>
         private void OpenButton_Click(object sender, RoutedEventArgs e)
         {
-            if (FolderDock.isClosed) fdWindow = new FolderDock();
-            fdWindow.Top = screenHeight / 2;
-            fdWindow.Left = Left;
-            fdWindow.Show();
+            if (isFolder)
+            {
+                fdWindow.Close();
+                isFolder = false;
+                openButton.Content = txtAtClose;
+            }
+            else
+            {
+                fdWindow = new FolderDock
+                {
+                    Top = screenHeight / 2,
+                    Left = Left
+                };
+                fdWindow.Show();
+                isFolder = true;
+                openButton.Content = txtAtOpen;
+            }
         }
 
         /// <summary>
@@ -431,6 +457,11 @@ namespace DocklikeMac
             }
         }
 
+        /// <summary>
+        /// タスクバーのボタンを押して，表示・非表示切替
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Menu1_Click(object sender, RoutedEventArgs e)
         {
             if (Visibility == Visibility.Hidden)
@@ -443,12 +474,22 @@ namespace DocklikeMac
             }
         }
 
+        /// <summary>
+        /// タスクバーのボタンその2を押してDockを終了
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Menu2_Click(object sender, RoutedEventArgs e)
         {
             manager.WriteJson();
             Application.Current.Shutdown();
         }
 
+        /// <summary>
+        /// Dockを×ボタンで終了できないようにする
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             e.Cancel = true;

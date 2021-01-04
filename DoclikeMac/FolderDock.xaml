@@ -5,8 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DocklikeMac"
         mc:Ignorable="d"
-        Title="FolderDock" Height="450" Width="800" Activated="Window_Activated" Topmost="True" ShowInTaskbar="False" Closed="Window_Closed">
-    <Grid>
-        <TextBlock x:Name="dockInfo" FontSize="14"></TextBlock>
-    </Grid>
+        Title="FolderDock"
+        Height="60"
+        Width="300"
+        ShowInTaskbar="False"
+        Background="#DFFFFFFF" DragOver="Window_DragOver" Drop="Window_Drop" AllowDrop="True" AllowsTransparency="True" WindowStyle="None">
+
+    <StackPanel MouseRightButtonDown="StackPanel_MouseRightButtonDown">
+        <TextBlock x:Name="title" Text="  Folder" Background="#FFC7D7E4" Height="30"></TextBlock>
+        <StackPanel x:Name="folderList" />
+    </StackPanel>
 </Window>
