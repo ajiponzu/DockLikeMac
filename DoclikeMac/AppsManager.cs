@@ -3,15 +3,20 @@ using System.IO;
 using System.Windows.Controls;
 using Image = System.Windows.Controls.Image;
 
-namespace DoclikeMac
+namespace DocklikeMac
 {
     //アプリデータリストの管理
     internal class AppsManager
     {
         private static readonly string settingFile = @"setting.json";
+        private static readonly string settingFolderFile = @"setting_folder.json";
 
         //アプリデータリスト
         private readonly List<AppData> apps;
+
+        //フォルダリスト
+        private readonly List<FolderData> folders;
+
 
         public AppData this[int idx]
         {
@@ -23,6 +28,7 @@ namespace DoclikeMac
 
         public AppsManager()
         {
+            //登録アプリの読み込み
             apps = new List<AppData>();
             //設定ファイル読み込み，要素の追加
             if (!File.Exists(settingFile)) return;
@@ -31,6 +37,9 @@ namespace DoclikeMac
             {
                 apps.Add(new AppData(path));
             }
+
+            //登録フォルダの読み込み
+
         }
 
         /// <summary>

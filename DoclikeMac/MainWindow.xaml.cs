@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 
-namespace DoclikeMac
+namespace DocklikeMac
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

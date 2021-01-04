@@ -10,7 +10,7 @@ using System.Windows.Threading;
 using Image = System.Windows.Controls.Image;
 using Point = System.Windows.Point;
 
-namespace DoclikeMac
+namespace DocklikeMac
 {
     //アプリデータ
     internal class AppData

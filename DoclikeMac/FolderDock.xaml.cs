@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 
-namespace DoclikeMac
+namespace DocklikeMac
 {
     /// <summary>
     /// Interaction logic for FolderDock.xaml
