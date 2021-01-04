@@ -140,7 +140,7 @@ namespace DocklikeMac
                 else
                 {
                     //アプリを起動する
-                    Process.Start(appPath);
+                    Process.Start("explorer.exe", appPath);
                 }
             };
 
