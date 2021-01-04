@@ -54,6 +54,10 @@ namespace DocklikeMac
             folderPath = path;
             var temp = path.Split('\\');
             name = temp.Last();
+            if (name == "")
+            {
+                name = "Cドライブ";
+            }
             button = new Button
             {
                 Content = name,
