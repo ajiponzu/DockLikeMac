@@ -13,7 +13,8 @@
             <ContextMenu>
                 <MenuItem x:Name="menu1" Header="表示/隠す" Click="Menu1_Click" />
                 <MenuItem x:Name="menu2" Header="閉じる/開く" Click="Menu2_Click" />
-                <MenuItem x:Name="menu3" Header="終了" Click="Menu3_Click" />
+                <MenuItem x:Name="menu3" Header="移動" Click="Menu3_Click" />
+                <MenuItem x:Name="menu4" Header="終了" Click="Menu4_Click" />
             </ContextMenu>
         </tb:TaskbarIcon.ContextMenu>
     </tb:TaskbarIcon>

@@ -56,11 +56,27 @@ namespace DocklikeMac
         }
 
         /// <summary>
-        /// タスクバーのボタンその3を押してアプリケーション自体を終了
+        /// タスクバーのボタンその3を押してDockを現在のデスクトップへ移動
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Menu3_Click(object sender, RoutedEventArgs e)
+        {
+            if (dock != null)
+            {
+                dock.End();
+                dock.Close();
+            }
+            dock = new AppDock();
+            dock.Show();
+        }
+
+        /// <summary>
+        /// タスクバーのボタンその4を押してアプリケーション自体を終了
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Menu4_Click(object sender, RoutedEventArgs e)
         {
             if (dock != null) dock.End();
             Application.Current.Shutdown();
