@@ -6,33 +6,15 @@
         xmlns:tb="http://www.hardcodet.net/taskbar"
         xmlns:local="clr-namespace:DocklikeMac"
         mc:Ignorable="d"
-        Height="88"
-        Width="110"
         WindowStyle="None"
-        Background="#8C2F59F0"
-        AllowsTransparency="True"
-        ResizeMode="NoResize"
-        Visibility="Visible"
-        DpiChanged="Window_DpiChanged"
-        MouseEnter="Window_MouseEnter"
-        MouseLeave="Window_MouseLeave" ShowInTaskbar="False" Topmost="True" DragEnter="Window_DragEnter" DragLeave="Window_DragLeave" DragOver="Window_DragOver" Drop="Window_Drop" Closing="Window_Closing">
-
-    <Grid x:Name="grid">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="44" />
-        </Grid.ColumnDefinitions>
-            <tb:TaskbarIcon IconSource="/Resources/TaskIcon.ico" ToolTipText="DockLikeMac">
+        Title="MainWindow" Height="100" Width="100" Topmost="True" ResizeMode="NoResize" Icon="/Resources/TaskIcon.ico">
+    <tb:TaskbarIcon IconSource="/Resources/TaskIcon.ico" ToolTipText="DockLikeMac">
         <tb:TaskbarIcon.ContextMenu>
             <ContextMenu>
                 <MenuItem x:Name="menu1" Header="表示/隠す" Click="Menu1_Click" />
-                <MenuItem x:Name="menu2" Header="終了" Click="Menu2_Click" />
-             </ContextMenu>
+                <MenuItem x:Name="menu2" Header="閉じる/開く" Click="Menu2_Click" />
+                <MenuItem x:Name="menu3" Header="終了" Click="Menu3_Click" />
+            </ContextMenu>
         </tb:TaskbarIcon.ContextMenu>
     </tb:TaskbarIcon>
-    <Grid x:Name="iconList" Margin="12,12,9,8" Background="#BFFFFFFF" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" AllowDrop="True" MouseMove="IconList_MouseMove" MouseLeftButtonUp="IconList_MouseLeftButtonUp" />
-        <Button x:Name="openButton" Content="open" Grid.Column="1" Margin="0,63,0,4" BorderBrush="#FFD6FF1D" Background="#FF9D9AE3" FontSize="12" FontFamily="Century" Click="OpenButton_Click" FontWeight="Bold" />
-        <Button x:Name="lockButton" Content="unlock" Grid.Column="1" Margin="0,42,0,25" BorderBrush="#FFD6FF1D" Background="#FF9D9AE3" FontSize="12" FontFamily="Century" Click="LockButton_Click" FontWeight="Bold" />
-        <Button x:Name="editButton" Content="edit" Grid.Column="1" Margin="0,21,0,46" BorderBrush="#FFD6FF1D" Background="#FF9D9AE3" FontSize="12" FontFamily="Century" Click="EditButton_Click" FontWeight="Bold" />
-    </Grid>
 </Window>
