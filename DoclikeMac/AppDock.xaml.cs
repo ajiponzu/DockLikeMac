@@ -154,8 +154,9 @@ namespace DocklikeMac
             return t;
         }
 
-        public void SaveInf()
+        public void End()
         {
+            if (isFolder) fdWindow.Close();
             manager.WriteJson();
         }
 

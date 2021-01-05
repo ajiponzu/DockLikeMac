@@ -24,6 +24,7 @@ namespace DocklikeMac
         /// <param name="e"></param>
         private void Menu1_Click(object sender, RoutedEventArgs e)
         {
+            if (dock == null) return;
             if (dock.Visibility == Visibility.Hidden)
             {
                 dock.Show();
@@ -43,7 +44,7 @@ namespace DocklikeMac
         {
             if (dock != null)
             {
-                dock.SaveInf();
+                dock.End();
                 dock.Close();
                 dock = null;
             }
@@ -61,7 +62,7 @@ namespace DocklikeMac
         /// <param name="e"></param>
         private void Menu3_Click(object sender, RoutedEventArgs e)
         {
-            dock.SaveInf();
+            if (dock != null) dock.End();
             Application.Current.Shutdown();
         }
     }
