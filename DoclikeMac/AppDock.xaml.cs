@@ -279,11 +279,9 @@ namespace DocklikeMac
             }
             else
             {
-                fdWindow = new FolderDock
-                {
-                    Top = screenHeight / 2,
-                    Left = screenWidth / 2,
-                };
+                fdWindow = new FolderDock();
+                fdWindow.Top = (screenHeight  - fdWindow.Height) / 2;
+                fdWindow.Left = (screenWidth - fdWindow.Width) / 2;
                 fdWindow.Show();
                 isFolder = true;
                 openButton.Content = txtAtOpen;

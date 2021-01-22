@@ -33,13 +33,13 @@ namespace DocklikeMac
         private DispatcherTimer timer = null;
 
         //アイコンの拡大行列
-        private static readonly ScaleTransform expand = new ScaleTransform(1.36, 1.36, 40, 40);
+        private static readonly ScaleTransform expand = new ScaleTransform(1.25, 1.25, 40, 50);
 
         //アイコンの縮小行列
-        private static readonly ScaleTransform narrow = new ScaleTransform(0.8, 0.8, 40, 40);
+        private static readonly ScaleTransform narrow = new ScaleTransform(0.75, 0.75, 40, 65);
 
         //アイコンの伸縮のための行列
-        private readonly ScaleTransform tempScaleMat = new ScaleTransform(0.8, 0.8, 40, 40);
+        private readonly ScaleTransform tempScaleMat = new ScaleTransform(0.75, 0.75, 40, 65);
 
         //アイコンの伸縮の1フレームあたりの秒数
         private static readonly int spf = 16;
