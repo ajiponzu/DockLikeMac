@@ -77,5 +77,15 @@ namespace DocklikeMac
             manager.RemoveFolderData();
             manager.WriteJson();
         }
+
+        /// <summary>
+        /// ウィンドウを閉じる
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

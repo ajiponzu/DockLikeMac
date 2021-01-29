@@ -57,15 +57,6 @@ namespace DocklikeMac
         //openボタンで表示するウィンドウ
         private FolderDock fdWindow = null;
 
-        //フォルダモード
-        private bool isFolder = false;
-
-        //openButtonテキスト1
-        private const string txtAtOpen = "close";
-
-        //openButtonテキスト2
-        private const string txtAtClose = "open";
-
         //編集モード
         public static bool isEdit = false;
 
@@ -156,7 +147,6 @@ namespace DocklikeMac
 
         public void End()
         {
-            if (isFolder) fdWindow.Close();
             manager.WriteJson();
         }
 
@@ -270,22 +260,10 @@ namespace DocklikeMac
         /// <param name="e"></param>
         private void OpenButton_Click(object sender, RoutedEventArgs e)
         {
-            if (isFolder)
-            {
-                fdWindow.Close();
-                fdWindow = null;
-                isFolder = false;
-                openButton.Content = txtAtClose;
-            }
-            else
-            {
-                fdWindow = new FolderDock();
-                fdWindow.Top = (screenHeight  - fdWindow.Height) / 2;
-                fdWindow.Left = (screenWidth - fdWindow.Width) / 2;
-                fdWindow.Show();
-                isFolder = true;
-                openButton.Content = txtAtOpen;
-            }
+            fdWindow = new FolderDock();
+            fdWindow.Top = (screenHeight - fdWindow.Height) / 2;
+            fdWindow.Left = (screenWidth - fdWindow.Width) / 2;
+            fdWindow.Show();
         }
 
         /// <summary>

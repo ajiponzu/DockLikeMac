@@ -12,7 +12,14 @@
         Background="#DFFFFFFF" DragOver="Window_DragOver" Drop="Window_Drop" AllowDrop="True" AllowsTransparency="True" WindowStyle="None">
 
     <StackPanel MouseRightButtonDown="StackPanel_MouseRightButtonDown">
-        <TextBlock x:Name="title" Text="  Folder" Background="#FFC7D7E4" Height="30"></TextBlock>
+        <Grid>
+            <TextBlock x:Name="title" Text="  Folder" Background="#FFC7D7E4" Height="30"/>
+            <Button Content="" Margin="270,0,0,0" Click="Button_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="/close_btn.png"/>
+                </Button.Background>
+            </Button>
+        </Grid>
         <StackPanel x:Name="folderList" />
     </StackPanel>
 </Window>

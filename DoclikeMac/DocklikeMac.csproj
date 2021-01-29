@@ -16,6 +16,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="close_btn.png" />
     <None Remove="Resources\TaskIcon.ico" />
   </ItemGroup>
 
@@ -52,6 +53,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="close_btn.png" />
     <Resource Include="Resources\TaskIcon.ico" />
   </ItemGroup>
 
