@@ -9,7 +9,7 @@
         Height="60"
         Width="300"
         ShowInTaskbar="False"
-        Background="#DFFFFFFF" DragOver="Window_DragOver" Drop="Window_Drop" AllowDrop="True" AllowsTransparency="True" WindowStyle="None">
+        Background="#DFFFFFFF" DragOver="Window_DragOver" Drop="Window_Drop" AllowDrop="True" AllowsTransparency="True" WindowStyle="None" Topmost="True">
 
     <StackPanel MouseRightButtonDown="StackPanel_MouseRightButtonDown">
         <Grid>
