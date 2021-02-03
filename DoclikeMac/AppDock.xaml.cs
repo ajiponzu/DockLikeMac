@@ -262,7 +262,7 @@ namespace DocklikeMac
         {
             fdWindow = new FolderDock();
             fdWindow.Top = (screenHeight - fdWindow.Height) / 2;
-            fdWindow.Left = (screenWidth - fdWindow.Width) / 2;
+            fdWindow.Left = Left + Width;
             fdWindow.Show();
         }
 
