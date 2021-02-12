@@ -136,8 +136,8 @@ namespace DocklikeMac
                 }
                 else if (Top > screenHeight && delta < 0)
                 {
-                    Top = screenHeight;
                     grid.Opacity = 0;
+                    Top = screenHeight;
                     t.Stop();
                 }
             };
@@ -222,8 +222,9 @@ namespace DocklikeMac
         {
             if (animationFlag)
             {
+                if (Top <= minY + 1 && Top >= minY - 1)
+                    Thread.Sleep(250);
                 delta = -deltaAbs;
-                Thread.Sleep(320);
                 AnimationWindow();
             }
         }
