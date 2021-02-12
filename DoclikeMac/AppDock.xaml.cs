@@ -37,7 +37,7 @@ namespace DocklikeMac
         public readonly int spf = 16;
 
         //ウィンドウの1フレームあたりの移動距離の絶対値
-        private readonly float deltaAbs = 4.3f;
+        private readonly float deltaAbs = 6.9f;
 
         //ウィンドウの1フレームあたりの移動距離
         private float delta;
