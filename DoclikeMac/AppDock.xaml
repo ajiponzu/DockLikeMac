@@ -22,8 +22,8 @@
             <ColumnDefinition Width="44" />
         </Grid.ColumnDefinitions>
         <Grid x:Name="iconList" Margin="12,12,9,2" Background="#BFFFFFFF" AllowDrop="True" MouseMove="IconList_MouseMove" MouseLeftButtonUp="IconList_MouseLeftButtonUp" />
-        <Button x:Name="openButton" Content="open" Grid.Column="1" Margin="0,63,0,2" BorderBrush="#FFD6FF1D" Background="#FF9D9AE3" FontSize="12" FontFamily="Century" Click="OpenButton_Click" FontWeight="Bold" />
-        <Button x:Name="lockButton" Content="unlock" Grid.Column="1" Margin="0,41,0,25" BorderBrush="#FFD6FF1D" Background="#FF9D9AE3" FontSize="12" FontFamily="Century" Click="LockButton_Click" FontWeight="Bold" />
-        <Button x:Name="editButton" Content="edit" Grid.Column="1" Margin="0,18,0,47" BorderBrush="#FFD6FF1D" Background="#FF9D9AE3" FontSize="12" FontFamily="Century" Click="EditButton_Click" FontWeight="Bold" />
+        <Button x:Name="openButton" Content="open" Grid.Column="1" Margin="0,63,0,2" BorderBrush="#FFD6FF1D" Background="#FF9D9AE3" FontSize="12" FontFamily="Yu Gothic UI" Click="OpenButton_Click" FontWeight="Bold" />
+        <Button x:Name="lockButton" Content="unlock" Grid.Column="1" Margin="0,41,0,25" BorderBrush="#FFD6FF1D" Background="#FF9D9AE3" FontSize="12" FontFamily="Yu Gothic UI" Click="LockButton_Click" FontWeight="Bold" />
+        <Button x:Name="editButton" Content="edit" Grid.Column="1" Margin="0,18,0,47" BorderBrush="#FFD6FF1D" Background="#FF9D9AE3" FontSize="12" FontFamily="Yu Gothic UI" Click="EditButton_Click" FontWeight="Bold" />
     </Grid>
 </Window>
