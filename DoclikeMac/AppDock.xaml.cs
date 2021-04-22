@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -86,7 +85,7 @@ namespace DocklikeMac
             startHeight = Height;
             /* ウィンドウの幅はアイコンの数に比例する */
             var count = manager.CountOfApps();
-            Width *= (count <= 0) ? 1 : count;
+            Width *= (count <= 1) ? 1 : count - 1;
             SetWindowInitPos();
         }
 

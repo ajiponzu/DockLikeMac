@@ -61,7 +61,7 @@ namespace DocklikeMac
         private Point curPos;
 
         //隣接アイコンとの溝
-        private const double pad = 15;
+        private const double pad = 20;
 
         //拡大・縮小アニメーション中true
         public static bool isIconSizeChanged = false;
