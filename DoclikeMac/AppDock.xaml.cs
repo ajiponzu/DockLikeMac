@@ -36,10 +36,10 @@ namespace DocklikeMac
         private DispatcherTimer timer = null;
 
         //ウィンドウ表示・非表示の1フレームあたりの秒数
-        public readonly int spf = 16;
+        public readonly int spf = 8;
 
         //ウィンドウの1フレームあたりの移動距離の絶対値
-        private readonly float deltaAbs = 6.9f;
+        private readonly float deltaAbs = 3.9f;
 
         //ウィンドウの1フレームあたりの移動距離
         private float delta;
@@ -130,6 +130,8 @@ namespace DocklikeMac
 
             t.Tick += (sender, e) =>
             {
+                if (AppData.isIconSizeChanged) return;
+
                 Top -= delta;
                 //所定の位置まで動かして止める
                 if (Top < minY && delta > 0)
@@ -182,17 +184,6 @@ namespace DocklikeMac
         /* xamlイベント */
 
         /// <summary>
-        /// dpiが変更された時のウィンドウ再配置メソッド
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Window_DpiChanged(object sender, DpiChangedEventArgs e)
-        {
-            //InitWindow();
-            //SetWindowInitPos();
-        }
-
-        /// <summary>
         /// ウィンドウを動かす処理
         /// </summary>
         private void AnimationWindow()
@@ -228,8 +219,6 @@ namespace DocklikeMac
         {
             if (animationFlag)
             {
-                if (Top <= minY + 1 && Top >= minY - 1)
-                    Thread.Sleep(250);
                 delta = -deltaAbs;
                 AnimationWindow();
             }

@@ -34,22 +34,22 @@ namespace DocklikeMac
         private DispatcherTimer timer = null;
 
         //アイコンの拡大行列
-        private static readonly ScaleTransform expand = new ScaleTransform(1.25, 1.25, 40, 50);
+        private static readonly ScaleTransform expand = new(1.40, 1.40, 40, 50);
 
         //アイコンの縮小行列
-        private static readonly ScaleTransform narrow = new ScaleTransform(0.75, 0.75, 40, 65);
+        private static readonly ScaleTransform narrow = new(0.70, 0.70, 40, 50);
 
         //アイコンの伸縮のための行列
-        private readonly ScaleTransform tempScaleMat = new ScaleTransform(0.75, 0.75, 40, 65);
+        private readonly ScaleTransform tempScaleMat = new(0.70, 0.70, 40, 50);
 
         //アイコンの伸縮の1フレームあたりの秒数
-        private static readonly int spf = 16;
+        private static readonly int spf = 4;
 
         //アイコンの1フレームあたりの拡大スピード
-        private static readonly float deltaExpand = 0.20f;
+        private static readonly float deltaExpand = 0.09f;
 
         //アイコンの1フレームあたりの縮小スピード
-        private static readonly float deltaNarrow = -0.06f;
+        private static readonly float deltaNarrow = -0.05f;
 
         //アイコンの1フレームあたりの伸縮
         private float delta;
@@ -61,7 +61,10 @@ namespace DocklikeMac
         private Point curPos;
 
         //隣接アイコンとの溝
-        private const double pad = 10;
+        private const double pad = 15;
+
+        //拡大・縮小アニメーション中true
+        public static bool isIconSizeChanged = false;
 
         //移動中true
         public static bool isMovingIcon = false;
@@ -147,6 +150,7 @@ namespace DocklikeMac
             {
                 if (AppDock.isEdit) return;
                 delta = deltaExpand;
+                isIconSizeChanged = true;
                 AnimationIcon();
             };
 
@@ -235,6 +239,7 @@ namespace DocklikeMac
                     //縮小
                     tempScaleMat.ScaleX = narrow.ScaleX;
                     tempScaleMat.ScaleY = narrow.ScaleY;
+                    isIconSizeChanged = false;
                     t.Stop();
                 }
             };
