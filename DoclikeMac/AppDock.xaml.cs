@@ -23,6 +23,8 @@ namespace DocklikeMac
 
         //最初のウィンドウ幅
         private double startWidth;
+        //最初のウィンドウの高さ
+        private double startHeight;
 
         //調整高さ幅
         private const int pad = 1;
@@ -84,6 +86,7 @@ namespace DocklikeMac
         private void InitWindow()
         {
             startWidth = Width;
+            startHeight = Height;
             /* ウィンドウの幅はアイコンの数に比例する */
             var count = manager.CountOfApps();
             Width *= (count <= 0) ? 1 : count;
@@ -136,6 +139,7 @@ namespace DocklikeMac
                 }
                 else if (Top > screenHeight && delta < 0)
                 {
+                    Height = 1;
                     grid.Opacity = 0;
                     Top = screenHeight;
                     t.Stop();
@@ -184,7 +188,8 @@ namespace DocklikeMac
         /// <param name="e"></param>
         private void Window_DpiChanged(object sender, DpiChangedEventArgs e)
         {
-            SetWindowInitPos();
+            //InitWindow();
+            //SetWindowInitPos();
         }
 
         /// <summary>
@@ -207,6 +212,7 @@ namespace DocklikeMac
         {
             if (animationFlag)
             {
+                Height = startHeight;
                 delta = deltaAbs;
                 grid.Opacity = 1;
                 AnimationWindow();

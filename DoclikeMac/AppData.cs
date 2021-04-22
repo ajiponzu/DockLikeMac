@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Drawing.Icons;
+using System.Windows.Interop;
 using System.IO;
 using System.Windows;
 using System.Windows.Media;
@@ -110,9 +111,8 @@ namespace DocklikeMac
         public void ReadIcon()
         {
             //winFormのアイコンをwpfのイメージに変換して保存
-            //var icon = Icon.ExtractAssociatedIcon(appPath);
             var icon = IconsExtractor.ExtractIconFromFile(appPath);
-            iconImage.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(
+            iconImage.Source = Imaging.CreateBitmapSourceFromHIcon(
                 icon.Handle,
                 Int32Rect.Empty,
                 BitmapSizeOptions.FromEmptyOptions());
