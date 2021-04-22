@@ -55,23 +55,20 @@ namespace DocklikeMac
             var temp = path.Split('\\');
             name = temp.Last();
             if (name == "")
-            {
                 name = "Cドライブ";
-            }
+
             button = new Button
             {
                 Content = name,
                 VerticalAlignment = VerticalAlignment.Top,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
             };
+
             if (Path.GetExtension(path) == "")
-            {
                 button.Background = brushFolder;
-            }
             else
-            {
                 button.Background = brushFile;
-            }
+
             RegisterEvent();
         }
 

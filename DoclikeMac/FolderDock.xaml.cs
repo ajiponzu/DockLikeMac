@@ -22,9 +22,8 @@ namespace DocklikeMac
         private void InitFolderList()
         {
             for (var idx = 0; idx < manager.CountOfApps(); idx++)
-            {
                 folderList.Children.Add(manager.GetFolderButton(idx));
-            }
+
             /* ウィンドウの高さは登録フォルダの数に比例する */
             var count = manager.CountOfApps();
             Height += (count <= 0) ? 0 : title.Height * count;
@@ -40,13 +39,10 @@ namespace DocklikeMac
         private void Window_DragOver(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop, true))
-            {
                 e.Effects = DragDropEffects.Copy;
-            }
             else
-            {
                 e.Effects = DragDropEffects.None;
-            }
+
             e.Handled = true;
         }
 

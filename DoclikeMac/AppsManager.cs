@@ -29,9 +29,7 @@ namespace DocklikeMac
             if (!File.Exists(settingFile)) return;
             var pathList = File.ReadAllLines(settingFile);
             foreach (var path in pathList)
-            {
                 apps.Add(new AppData(path));
-            }
         }
 
         /// <summary>
@@ -43,9 +41,7 @@ namespace DocklikeMac
             foreach (var app in apps)
             {
                 if (path == app.AppPath)
-                {
                     return false;
-                }
             }
             apps.Add(new AppData(path));
             return true;
@@ -140,9 +136,7 @@ namespace DocklikeMac
         public void FixGridPosition(int idx)
         {
             for (; idx < apps.Count; idx++)
-            {
                 apps[idx].iconImage.SetValue(Grid.ColumnProperty, idx);
-            }
         }
 
         /// <summary>
@@ -152,9 +146,8 @@ namespace DocklikeMac
         {
             var pathList = new string[apps.Count];
             for (var idx = 0; idx < apps.Count; idx++)
-            {
                 pathList[idx] = apps[idx].AppPath;
-            }
+
             File.WriteAllLines(settingFile, pathList);
         }
     }

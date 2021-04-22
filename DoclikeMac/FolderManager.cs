@@ -17,11 +17,10 @@ namespace DocklikeMac
             folders = new List<FolderData>();
             //設定ファイル読み込み，要素の追加
             if (!File.Exists(settingFolderFile)) return;
+
             var folderPathList = File.ReadAllLines(settingFolderFile);
             foreach (var path in folderPathList)
-            {
                 folders.Add(new FolderData(path));
-            }
         }
 
         /// <summary>
@@ -33,9 +32,7 @@ namespace DocklikeMac
             foreach (var folder in folders)
             {
                 if (path == folder.FolderPath)
-                {
                     return false;
-                }
             }
             folders.Add(new FolderData(path));
             return true;
@@ -91,9 +88,8 @@ namespace DocklikeMac
         {
             var pathList = new string[folders.Count];
             for (var idx = 0; idx < folders.Count; idx++)
-            {
                 pathList[idx] = folders[idx].FolderPath;
-            }
+
             File.WriteAllLines(settingFolderFile, pathList);
         }
     }

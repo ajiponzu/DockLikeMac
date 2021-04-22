@@ -277,13 +277,10 @@ namespace DocklikeMac
             if (isEdit)
             {
                 if (e.Data.GetDataPresent(DataFormats.FileDrop, true))
-                {
                     e.Effects = DragDropEffects.Copy;
-                }
                 else
-                {
                     e.Effects = DragDropEffects.None;
-                }
+
                 e.Handled = true;
             }
         }

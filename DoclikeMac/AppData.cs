@@ -86,9 +86,8 @@ namespace DocklikeMac
             appPath = path;
             var extension = Path.GetExtension(path);
             if (extension.Equals(".lnk"))
-            {
                 HandleShortcut();
-            }
+
             iconImage = new Image();
             if (appPath == "") return;
             ReadIcon();
@@ -139,10 +138,8 @@ namespace DocklikeMac
                     movingImage = iconImage;
                 }
                 else
-                {
                     //アプリを起動する
                     Process.Start("explorer.exe", appPath);
-                }
             };
 
             //カーソルに触れるとアイコン拡大
@@ -166,13 +163,10 @@ namespace DocklikeMac
             {
                 if (AppDock.isEdit) return;
                 if (e.Data.GetDataPresent(DataFormats.FileDrop, true))
-                {
                     e.Effects = DragDropEffects.Copy;
-                }
                 else
-                {
                     e.Effects = DragDropEffects.None;
-                }
+
                 e.Handled = true;
             };
 

@@ -26,13 +26,9 @@ namespace DocklikeMac
         {
             if (dock == null) return;
             if (dock.Visibility == Visibility.Hidden)
-            {
                 dock.Show();
-            }
             else
-            {
                 dock.Hide();
-            }
         }
 
         /// <summary>
