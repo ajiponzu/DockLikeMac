@@ -44,9 +44,6 @@ namespace DocklikeMac
         //ウィンドウの1フレームあたりの移動距離
         private float delta;
 
-        //ウィンドウアニメーションフラグ
-        private bool animationFlag = false;
-
         //ウィンドウ自動非表示フラグ
         private bool isUnlock = false;
 
@@ -130,8 +127,6 @@ namespace DocklikeMac
 
             t.Tick += (sender, e) =>
             {
-                if (AppData.isIconSizeChanged) return;
-
                 Top -= delta;
                 //所定の位置まで動かして止める
                 if (Top < minY && delta > 0)
@@ -169,14 +164,12 @@ namespace DocklikeMac
             {
                 Top = screenHeight;
                 grid.Opacity = 0;
-                animationFlag = true;
                 lockButton.Content = txtAtUnlock;
             }
             else
             {
                 Top = minY;
                 grid.Opacity = 1;
-                animationFlag = false;
                 lockButton.Content = txtAtLock;
             }
         }
@@ -201,7 +194,7 @@ namespace DocklikeMac
         /// <param name="e"></param>
         private void Window_MouseEnter(object sender, MouseEventArgs e)
         {
-            if (animationFlag)
+            if (isUnlock)
             {
                 Height = startHeight;
                 delta = deltaAbs;
@@ -217,7 +210,7 @@ namespace DocklikeMac
         /// <param name="e"></param>
         private void Window_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (animationFlag)
+            if (isUnlock)
             {
                 delta = -deltaAbs;
                 AnimationWindow();
@@ -225,24 +218,24 @@ namespace DocklikeMac
         }
 
         /// <summary>
-        /// ウィンドウ固定・非固定モード切替．アニメーションモードと対応．ウィンドウ非固定モードのときはアプリ実行モードにする．
+        /// ウィンドウ固定・非固定モード切替．ウィンドウ非固定モードのときはアプリ実行モードにする．
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void LockButton_Click(object sender, RoutedEventArgs e)
         {
-            //アニメーションモードのとき
-            if (animationFlag)
+            //固定モードのとき
+            if (isUnlock)
             {
-                //アニメーションをオフにし，ウィンドウを固定
-                isUnlock = animationFlag = false;
+                //ウィンドウを固定
+                isUnlock = false;
                 lockButton.Content = txtAtLock;
                 Top = minY;
             }
             else
             {
-                //アニメーションをオンにする
-                isUnlock = animationFlag = true;
+                //固定モードを解除
+                isUnlock = true;
                 lockButton.Content = txtAtUnlock;
                 isEdit = false;
                 editButton.Content = txtAtExe;
@@ -354,7 +347,7 @@ namespace DocklikeMac
                 //編集モードへ
                 isEdit = true;
                 editButton.Content = txtAtEdit;
-                isUnlock = animationFlag = false;
+                isUnlock = false;
                 lockButton.Content = txtAtLock;
                 Top = minY;
             }
