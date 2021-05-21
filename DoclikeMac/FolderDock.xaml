@@ -13,10 +13,10 @@
 
     <StackPanel MouseRightButtonDown="StackPanel_MouseRightButtonDown">
         <Grid>
-            <TextBlock x:Name="title" Text="  Folder" Background="#FFC7D7E4" Height="30"/>
+            <TextBlock x:Name="title" Text="  Folder" Background="#FFC7D7E4" Height="30" />
             <Button Content="" Margin="270,0,0,0" Click="Button_Click">
                 <Button.Background>
-                    <ImageBrush ImageSource="/close_btn.png"/>
+                    <ImageBrush ImageSource="/close_btn.png" />
                 </Button.Background>
             </Button>
         </Grid>
