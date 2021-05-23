@@ -13,6 +13,12 @@ namespace DocklikeMac
     {
       InitializeComponent();
       Hide();
+
+      //同一名プロセスが実行されているなら, 終了
+      var proc = System.Diagnostics.Process.GetProcessesByName("DocklikeMac");
+      if (proc.Length > 1)
+        Application.Current.Shutdown();
+
       dock = new AppDock();
       dock.Show();
     }
