@@ -184,7 +184,6 @@ namespace DocklikeMac
       if (timer != null) timer.Stop();
       timer = CreateWindowMoveTimer();
       timer.Start();
-      GC.Collect();
     }
 
     /// <summary>
